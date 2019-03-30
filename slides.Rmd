@@ -588,8 +588,8 @@ class: center middle hide-slide-number
 
 .pad1[
 .font4[
-Do it yourself: <br>
-https://djnavarro.github.io/chdss2018/
+Exercise 1: Testing the flexibility of ggplot2 <br>
+https://djnavarro.github.io/some_url_here
 ]]
 
 
