@@ -276,6 +276,41 @@ ggplot(
 
 
 
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add layer-specific aesthetics
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+*geom_point(size = 3)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/add_fixedaesthetic-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
@@ -295,7 +330,7 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point() + 
+geom_point(size = 3) + 
 *geom_rug()
 ```
 
@@ -311,8 +346,6 @@ geom_point() +
 
 
 
-
-
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 class: split-40 bg-main1
@@ -320,52 +353,17 @@ class: split-40 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Aesthetics are inherited
+Split into facets
 
 ```r
 ggplot(
   data = beaches,
   mapping = aes(
     x = temp_airport, 
-    y = rain_mm,
-*   colour = year
+    y = rain_mm
   ) 
 ) + 
-geom_point() + 
-geom_rug() 
-```
-
-]]]
-]]
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-![](slides_files/figure-html/add_colour-1.png)&lt;!-- --&gt;
-
-]]
-]]
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: split-40 bg-main1
-
-.column.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-Separate into facets
-
-```r
-ggplot(
-  data = beaches,
-  mapping = aes(
-    x = temp_airport, 
-    y = rain_mm,
-    colour = year
-  ) 
-) + 
-geom_point() + 
+geom_point(size = 2) + 
 geom_rug() + 
 *facet_wrap(vars(season))
 ```
@@ -378,6 +376,113 @@ geom_rug() +
 ![](slides_files/figure-html/add_facets-1.png)&lt;!-- --&gt;
 
 ]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Modify the theme
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(size = 2) + 
+geom_rug() + 
+facet_wrap(vars(season)) + 
+*theme_bw()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/add_theme-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Make nicer titles
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(size = 2) + 
+geom_rug() + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+* label = "Sydney weather by season",
+* subtitle = "Data from 2013 to 2018"
+*) +
+*xlab("Temperature (Celsius)") +
+*ylab("Rainfall (mm)")
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/add_titles-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 1: Testing the flexibility of ggplot2 &lt;br&gt;
+https://djnavarro.github.io/some_url_here
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[What's in a layer?]
 ]]
 
 
@@ -478,10 +583,11 @@ facet_wrap(vars(season)) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/add_theme-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/add_theme2222-1.png)&lt;!-- --&gt;
 
 ]]
 ]]
+
 
 
 
@@ -494,7 +600,7 @@ class: split-40 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Adding titles
+Layers can compute things
 
 ```r
 ggplot(
@@ -516,25 +622,10 @@ theme_bw() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/add_titles-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/add_titles222-1.png)&lt;!-- --&gt;
 
 ]]
 ]]
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: center middle hide-slide-number
-
-.pad1[
-.font4[
-Exercise 1: Testing the flexibility of ggplot2 &lt;br&gt;
-https://djnavarro.github.io/some_url_here
-]]
-
-
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
