@@ -1,0 +1,1436 @@
+---
+title: "Data Visualisation in R"
+subtitle: "From ggplot2 to gganimate"
+author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
+date: "https://djnavarro.github.io/satrdayjoburg/<br><br>6 April 2019"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    chakra: libs/remark-latest.min.js    
+    css: ["kunoichi", "ninjutsu" , "assets/ninpo.css", "assets/danielle.css"]
+    self_contained: false
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE, message = FALSE}
+options(htmltools.dir.version = FALSE)
+library(here)
+library(tidyverse)
+frames <- read_csv(here("data","frames_ex2.csv"))
+beaches <- read_csv(here("data","sydneybeaches2.csv"))
+```
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Data visualisation
+
+<br>
+
+.pull.left[.pad1[
+
+### .orange[**What?**] Drawing pictures
+### .orange[**Why?**] Understand your data
+### .orange[**How?**] Using tidyverse (ggplot2)
+
+]]
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+<img src="images/horst_ggplot.png", width="70%">
+
+[@allison_horst](https://twitter.com/allison_horst)
+
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 middle center
+
+.pull.left[.pad1[.font2[
+```{r beachesdata, eval=TRUE, message=FALSE}
+beaches <- here("data","sydneybeaches2.csv") %>% read_csv() 
+beaches
+```
+]]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+A blank canvas
+
+```{r, eval=FALSE, message = FALSE}
+ggplot()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r blankcanvas, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+ggplot() 
+```
+
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Specify the data
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches #<<
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r stillblankcanvas, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+ggplot(
+  data = beaches #<<
+) 
+```
+
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Specify the aesthetics
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(      #<<
+    x = temp_airport, #<<
+    y = rain_mm       #<<
+  )                   #<<
+)
+```
+
+- x-axis location
+- y-axis location
+- colour of marker
+- fill of a marker
+- shape of a marker
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r aesthetics, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+)
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add a layer
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point() #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_layer, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point() #<<
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add more layers
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point() + 
+geom_rug() #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r two_layers, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point() + 
+geom_rug() #<<
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Aesthetics are inherited
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm,
+    colour = year #<<
+  ) 
+) + 
+geom_point() + 
+geom_rug() 
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_colour, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm,
+    colour = year #<<
+  ) 
+) + 
+geom_point() + 
+geom_rug() 
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Separate into facets
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm,
+    colour = year
+  ) 
+) + 
+geom_point() + 
+geom_rug() + 
+facet_wrap(vars(season)) #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_facets, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm,
+    colour = year #<<
+  ) 
+) + 
+geom_point() + 
+geom_rug() + 
+facet_wrap(vars(season)) #<<
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Layers can compute things!
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+geom_histogram() + #<<
+facet_wrap(vars(season))
+```
+
+- histograms are not "in the data"
+
+]]]
+]]
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_histogram, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+geom_histogram() + 
+facet_wrap(vars(season))
+```
+
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Layers can compute things!
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+geom_density() + #<<
+facet_wrap(vars(season))
+```
+
+- histograms are not "in the data"
+- kernel density estimates are not "in the data"
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_density, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) +  
+geom_density() + 
+facet_wrap(vars(season))
+```
+
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Themes allow customisation
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+geom_density() + 
+facet_wrap(vars(season)) + 
+theme_bw() #<<
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_theme, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) +  
+geom_density() + 
+facet_wrap(vars(season)) + 
+theme_bw()
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Adding titles
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+geom_density() + 
+facet_wrap(vars(season)) + 
+theme_bw() + 
+ggtitle("Sydney temperature") + #<<
+xlab("Temperature") + #<<
+ylab("Density") #<<
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_titles, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) +  
+geom_density() + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle("Sydney temperature") + #<<
+xlab("Temperature") + #<<
+ylab("Density") #<<
+```
+
+]]
+]]
+
+
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+# Start simple:
+```{r, eval=FALSE, message = FALSE}
+frames_small <- frames %>%
+  group_by(
+    id, gender, age, condition
+  ) %>%
+  summarise(
+    response = mean(response)
+  ) %>%
+  ungroup()
+
+frames_small
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+# The data:
+```{r framessmall, eval=TRUE, message = FALSE, cache=TRUE, echo=FALSE}
+frames_small <- frames %>%
+  group_by(
+    id, gender, age, condition
+  ) %>%
+  summarise(
+    response = mean(response)
+  ) %>%
+  ungroup()
+
+frames_small
+```
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Example 1: Histograms]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot()
+```
+
+- Start with blank canvas
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r blankplot, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot() #<<
+```
+
+]]
+]]
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(
+    aes(x = age) #<<
+  ) 
+```
+
+- aes() adds an *aesthetic*: things that can represent data<br><br>
+- x-axis location
+- y-axis location
+- colour of marker
+- fill of a marker
+- shape of a marker
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r addaes, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(aes(x = age)) #<<
+```
+
+]]
+]]
+
+
+
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(aes(x = age)) +
+  geom_histogram() #<<
+```
+
+- add "geometries": functions that represent data on the plot<br><br>
+- **NOTE**: use `+` not `%>%`
+- (historical artifact)
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(aes(x = age)) +
+  geom_histogram()
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Example 2: Scatter plots]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot()
+```
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r blank2, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot()
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(
+    mapping = aes(
+      x = age, #<<
+      y = response #<<
+    )
+  )
+```
+
+- Different plots use different aesthetics!
+- Geoms "understand" some aesthetics and not others
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r aes2, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(mapping = aes(
+    x = age, 
+    y = response
+  ))
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response
+  )) + 
+  geom_point() #<<
+```
+
+- the "point" geom draws...points
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r geompoint, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(mapping = aes(
+    x = age, 
+    y = response
+  )) +
+  geom_point()
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+      colour = condition #<< 
+  )) + 
+  geom_point()
+```
+
+
+- the "point" geom draws...points
+- you can use colour nicely
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r colourpoint, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(mapping = aes(
+    x = age, 
+    y = response,
+    colour = condition
+  )) + 
+  geom_point()
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+      colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug() #<<
+```
+
+- the "point" geom draws...points
+- you can use colour nicely
+- you can **layer** geoms
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r addrug, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(mapping = aes(
+    x = age, 
+    y = response,
+    colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug()
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+      colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug() +
+  facet_wrap(~condition) #<<
+```
+
+- the "point" geom draws...points
+- you can use colour nicely
+- you can **layer** geoms
+- you can add **facets**
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r addfacet, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(mapping = aes(
+    x = age, 
+    y = response,
+    colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug() + 
+  facet_wrap(~condition)
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(
+    mapping = aes(
+      x = age, 
+      y = response,
+      colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug() +
+  facet_wrap(~condition) + 
+  theme_bw() #<<
+```
+
+- the "point" geom draws...points
+- you can use colour nicely
+- you can **layer** geoms
+- you can add **facets**
+- and **themes**
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r addtheme, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(mapping = aes(
+    x = age, 
+    y = response,
+    colour = condition
+  )) + 
+  geom_point() + 
+  geom_rug() + 
+  facet_wrap(~condition) +
+  theme_bw()
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Examples 3-5: Bars, boxes and violins]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(aes(x = gender)) +  
+  facet_wrap(~condition) +   
+  geom_bar() #<<              
+```
+
+- It does bar plots, but
+- ... this is so boring
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r barplot, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE}
+frames_small %>%
+  ggplot(aes(x = gender)) +  # set up the mapping
+  facet_wrap(~condition) +   # split it into plots
+  geom_bar()                 # add the bars!
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, cache=TRUE, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(aes(
+    x = condition,
+    y = response
+  )) + 
+  geom_boxplot() #<<             
+```
+
+- Boxplots use Tukey's "five number summary" to represent distribution of responses
+- Median, interquartile range, range
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r boxplot, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames_small %>%
+  ggplot(aes(x = condition, y = response)) + 
+  geom_boxplot()
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(aes(
+    x = condition,
+    y = response
+  )) + 
+  geom_violin() #<<            
+```
+
+- Violin plots are a modern take
+- Width of the violin is a "kernel density estimate"
+- (it's a smoothing of your data)
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r geomviolin, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames_small %>%
+  ggplot(aes(x = condition, y = response)) + 
+  geom_violin()
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r eval=FALSE, message = FALSE}
+frames_small %>%
+  ggplot(aes(
+    x = condition,
+    y = response
+  )) + 
+  geom_violin() +
+  geom_jitter() #<<         
+```
+
+- "Jittered" points highlights this
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r addjitter, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames_small %>%
+  ggplot(aes(x = condition, y = response)) + 
+  geom_violin() +
+  geom_jitter()
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Examples 6: Getting fancy?]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames %>%
+  ggplot(mapping = aes(
+    x = test_item, 
+    y = response
+  )) + 
+  geom_count() #<<
+```
+
+- "count" scales size with frequency
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r bubble1, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames %>%
+  ggplot(mapping = aes(
+    x = test_item, 
+    y = response
+  )) + 
+  geom_count() #<<
+```
+
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames %>%
+  ggplot(mapping = aes(
+    x = test_item, 
+    y = response
+  )) + 
+  geom_count() + 
+  facet_grid( #<<
+    condition ~ sample_size) + #<<
+  theme_bw() #<<
+```
+
+- let's facet in a grid
+- and switch to a light theme
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r bubble2, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames %>%
+  ggplot(mapping = aes(
+    x = test_item, 
+    y = response
+  )) + 
+  geom_count() + 
+  facet_grid( #<<
+    condition ~ sample_size) + #<<
+  theme_bw() #<<
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames %>%
+  ggplot(mapping = aes(
+    x = test_item, 
+    y = response,
+    colour = condition #<< 
+  )) + 
+  geom_count() + 
+  facet_grid( 
+    condition ~ sample_size) + 
+  theme_bw()
+```
+- play around!
+- see [the tutorial](https://djnavarro.github.io/chdss2018/visualisation.html) for more 
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r bubble3, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames %>%
+  ggplot(mapping = aes(
+    x = test_item, 
+    y = response,
+    colour = condition #<<
+  )) + 
+  geom_count() + 
+  facet_grid( 
+    condition ~ sample_size
+  ) + 
+  theme_bw() #
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Example 7: Error bars. Blegh!]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+library(lsr)
+
+frames_mean <- frames %>%
+  group_by(
+    condition, 
+    sample_size, 
+    test_item
+  ) %>%
+  summarise(
+    resp = mean(response),
+    lower = ciMean(response)[1], #<<
+    upper = ciMean(response)[2] #<<
+  )
+
+frames_mean
+```
+
+- use dplyr to add to the data
+- use lsr::ciMean to get a CI95
+- use dplyr to add to the data
+
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r cimean, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+library(lsr)
+
+frames_mean <- frames %>%
+  group_by(condition,sample_size,test_item) %>%
+  summarise(
+    resp = mean(response),
+    lower = ciMean(response)[1],
+    upper = ciMean(response)[2]
+  )
+
+frames_mean
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_mean %>%
+  ggplot(aes(
+    x = test_item, 
+    y = resp, 
+    colour = condition)) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(aes( #<<
+    ymin = lower, ymax = upper)) + #<<
+  facet_wrap(~sample_size)
+```
+
+- "errorbar" geom draws error bars
+- just remember to be cautious!
+- confidence intervals hide *a lot*
+]]]
+]]
+--
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r errorbarpic, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames_mean %>%
+  ggplot(aes(
+    x = test_item, y = resp, colour = condition
+  )) +
+  geom_point() +
+  geom_line() +
+  geom_errorbar(aes(
+    ymin = lower, ymax = upper
+  )) +
+  facet_wrap(~sample_size)
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Example 8: But wait there's more!]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+```{r, eval=FALSE, message = FALSE}
+frames_small %>% 
+  ggplot(mapping = aes(
+    x = age, 
+    y = response, 
+    colour = condition)) +
+  geom_point() + 
+  theme_bw() +
+  geom_density_2d() + #<<
+  facet_wrap(~condition) +
+  ylim(0,9)
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r countour, cache=TRUE, eval=TRUE, message = FALSE, echo=FALSE}
+frames_small %>% 
+  ggplot(mapping = aes(
+    x = age, 
+    y = response, 
+    colour = condition)) +
+  geom_point() + 
+  theme_bw() +
+  geom_density_2d() +
+  facet_wrap(~condition) +
+  ylim(0,9)
+```
+]]
+]]
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[
+Data visualisation exercise: <br>
+Explore the frames data with ggplot<br>
+https://djnavarro.github.io/chdss2018/
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 middle center
+
+.pull.left[.pad1[.font2[
+- List of 
+- Useful resources
+- Goes here
+]]]
+
+<!-- DONE -->
+---
+
+class: bg-main1 middle center
+
+## thank u, next
+
+
