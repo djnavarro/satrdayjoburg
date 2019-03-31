@@ -318,6 +318,53 @@ geom_point(size = 3) #<<
 
 
 
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add layer-specific mappings
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season), #<<
+  size = 3
+)   
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_layeraesthetic, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season), #<<
+  size = 3
+) 
+```
+
+]]
+]]
+
+
+
+
 
 
 <!-- *********** NEW SLIDE ************** -->
@@ -336,7 +383,10 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point(size = 3) + 
+geom_point(
+  mapping = aes(colour = season),
+  size = 3
+) + 
 geom_rug() #<<
 ```
 
@@ -353,8 +403,11 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point(size = 3) + 
-geom_rug() #<<
+geom_point(
+  mapping = aes(colour = season), 
+  size = 3
+) + 
+geom_rug()
 ```
 
 ]]
@@ -378,7 +431,10 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point(size = 2) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2
+) + 
 geom_rug() + 
 facet_wrap(vars(season)) #<<
 ```
@@ -396,7 +452,10 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point(size = 2) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2
+) + 
 geom_rug() + 
 facet_wrap(vars(season)) #<<
 ```
@@ -405,6 +464,58 @@ facet_wrap(vars(season)) #<<
 ]]
 
 
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Remove an unwanted legend
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE #<<
+) + 
+geom_rug() + 
+facet_wrap(vars(season)) 
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r remove_legend, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE #<<
+) + 
+geom_rug() + 
+facet_wrap(vars(season)) 
+```
+
+]]
+]]
 
 
 
@@ -424,7 +535,11 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point(size = 2) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE 
+) + 
 geom_rug() + 
 facet_wrap(vars(season)) + 
 theme_bw() #<<
@@ -443,7 +558,64 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point(size = 2) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE #<<
+) +
+geom_rug() + 
+facet_wrap(vars(season)) + 
+theme_bw() 
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+(Nothing to see here...)
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm)) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE) + 
+geom_rug() + 
+facet_wrap(vars(season)) + 
+theme_bw() #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r add_theme2, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE #<<
+) +
 geom_rug() + 
 facet_wrap(vars(season)) + 
 theme_bw() 
@@ -469,14 +641,15 @@ ggplot(
   data = beaches,
   mapping = aes(
     x = temp_airport, 
-    y = rain_mm
-  ) 
-) + 
-geom_point(size = 2) + 
+    y = rain_mm)) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE) +  
 geom_rug() + 
 facet_wrap(vars(season)) + 
 theme_bw() +
-ggtitle( 
+ggtitle( #<<
   label = "Sydney weather by season", #<<
   subtitle = "Data from 2013 to 2018" #<<
 ) + #<<
@@ -498,7 +671,11 @@ ggplot(
     y = rain_mm
   ) 
 ) + 
-geom_point(size = 2) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE
+) +
 geom_rug() + 
 facet_wrap(vars(season)) + 
 theme_bw() + 
@@ -508,6 +685,67 @@ ggtitle(
 ) + #<<
 xlab("Temperature (Celsius)") + #<<
 ylab("Rainfall (mm)") #<<
+```
+
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Done!
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm)) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE) +  
+geom_rug() + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle(
+  label = "Sydney weather by season",
+  subtitle = "Data from 2013 to 2018") + 
+xlab("Temperature (Celsius)") +
+ylab("Rainfall (mm)") 
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r done, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temp_airport, 
+    y = rain_mm
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season), 
+  size = 2,
+  show.legend = FALSE
+) +
+geom_rug() + 
+facet_wrap(vars(season)) + 
+theme_bw() + 
+ggtitle( 
+  label = "Sydney weather by season", #<<
+  subtitle = "Data from 2013 to 2018" #<<
+) + #<<
+xlab("Temperature (Celsius)") + #<<
+ylab("Rainfall (mm)") #
 ```
 
 ]]
