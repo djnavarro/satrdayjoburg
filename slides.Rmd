@@ -757,6 +757,29 @@ ylab("Rainfall (mm)") #
 
 <!-- *********** NEW SLIDE ************** -->
 ---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Ingredients of this plot/cake 
+- Data
+- Aesthetics
+- Layers
+- Facets
+- Theme
+- Labels
+- (Coordinates)
+- (Scales)
+]]]
+]
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
 
 class: center middle hide-slide-number
 
@@ -1053,7 +1076,7 @@ https://djnavarro.github.io/some_url_here
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[What goes in a layer?]
+.font4[Layers]
 ]]
 
 
@@ -1122,9 +1145,6 @@ pic_hist
 
 
 
-
-
-
 <!-- *********** NEW SLIDE ************** -->
 ---
 class: split-40 bg-main1
@@ -1188,7 +1208,7 @@ Each layer specifies:
 ]]
 --
 
-.column.bg-main1[.content.vtop.center[
+.column.bg-main3[.content.vtop.center[
 .pull.left[.pad1[.font2[
 The layer information... histogram
 ```{r, eval=TRUE, message = FALSE}
@@ -1198,10 +1218,173 @@ pic_hist$layers
 <br>
 - There is hidden complexity!
 - It's a bit weird
-- We'll come back to this
+- Let's dig into this...
 
 
 ]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Our histogram...
+```{r, eval=FALSE, message = FALSE}
+pic + geom_histogram(
+  stat = "bin",
+  position = "stack"
+) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic + geom_histogram(
+  stat = "bin",
+  position = "stack"
+) 
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The exact same histogram!
+```{r, eval=FALSE, message = FALSE}
+pic + stat_bin(
+  geom = "bar",
+  position = "stack"
+) 
+```
+- How would we check?
+- Is it exactly the same?
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic + stat_bin(
+  geom = "bar",
+  position = "stack"
+) 
+```
+
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Changing the default geom?
+```{r, eval=FALSE, message = FALSE}
+pic + stat_bin(
+  geom = "point",
+  position = "stack"
+) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic + stat_bin(
+  geom = "point",
+  position = "stack"
+) 
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Another way to do the same thing
+```{r, eval=FALSE, message = FALSE}
+pic + geom_point(
+  stat = "bin",
+  position = "stack"
+) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic + geom_point(
+  stat = "bin",
+  position = "stack"
+)
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+<br>
+## [But whhhyyyyy??????](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
+
+"Next we write a layer function. Unfortunately, due to an early design mistake I called these either stat\_() or geom\_(). A better decision would have been to call them layer\_() functions: that’s a more accurate description because every layer involves a stat and a geom."
+
+
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+<img src="images/hadley.gif", width="70%">
+
+[Hadley Wickham](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
+
 ]]
 
 
@@ -1212,9 +1395,521 @@ class: center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise: Stats, geoms and layers <br>
+Exercise: Playing with the layers<br>
 https://djnavarro.github.io/some_url_here
 ]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Where are we up to?]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Ingredients we (kind of) understand
+- .orange[Data] ... the tibble / data frame
+- .orange[Aesthetics] ... the mappings
+- .orange[Layers] ... stats, geoms and positions
+- .orange[Facets] ... relatively simple (sort of)
+- .orange[Labels] ... relatively simple
+- Theme
+- Coordinates
+- Scales
+]]]
+]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Ingredients that are made of magic sauce
+- Data 
+- Aesthetics
+- Layers
+- Facets
+- Labels
+- .orange[Theme] ... what if I want to tinker?
+- .orange[Coordinates] ... what's this about? 
+- .orange[Scales] ... what's this about?
+]]]
+]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+The rest of the banquet
+- .orange[Extensions] ... how are ggplot extensions made?
+- .orange[Animations] ... how do I make awesome gifs?
+- .orange[Geospatial] ... maps, how are they made?
+]]]
+]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Themes]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Coordinates]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Some preprocessing...
+```{r, eval=TRUE, message = FALSE}
+rain <- beaches %>% 
+  group_by(month, year, season) %>%
+  summarise(
+    rain = mean(rain_mm)
+  ) %>%
+  ungroup() %>%
+  spread(
+    key = year, 
+    value = rain
+  )
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+rain <- beaches %>% 
+  group_by(month, year, season) %>%
+  summarise(
+    temp = mean(rain_mm)
+  ) %>%
+  ungroup() %>%
+  spread(
+    key = year, 
+    value = temp
+  )
+
+rain
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5)
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline( #<<
+  slope = 1, #<<
+  intercept = 0 #<<
+) #<<
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline(
+  slope = 1, 
+  intercept = 0
+)
+```
+]]
+]]
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline( 
+  slope = 1, 
+  intercept = 0 
+) + 
+coord_equal() #<<
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline(
+  slope = 1, 
+  intercept = 0
+) + 
+coord_equal()
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline( 
+  slope = 1, 
+  intercept = 0 
+) + 
+coord_equal(
+  xlim = c(0, 25), #<<
+  ylim = c(0, 25) #<<
+)
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline(
+  slope = 1, 
+  intercept = 0
+) + 
+coord_equal(
+  xlim = c(0, 25), #<<
+  ylim = c(0, 25) #<<
+)
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline( 
+  slope = 1, 
+  intercept = 0 
+) + 
+coord_cartesian( #<<
+  xlim = c(0, 25), 
+  ylim = c(0, 25) 
+)
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline(
+  slope = 1, 
+  intercept = 0
+) + 
+coord_cartesian(
+  xlim = c(0, 25), #<<
+  ylim = c(0, 25) #<<
+)
+```
+]]
+]]
+
+
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season,
+    fill = season
+  )
+) + 
+geom_col()
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season,
+    fill = season
+  )
+) + 
+geom_col() 
+```
+]]
+]]
+
+
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season,
+    fill = season
+  )
+) + 
+geom_col() + 
+coord_polar() #<<
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season,
+    fill = season    
+  )
+) + 
+geom_col() + 
+coord_polar() #<<
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Scales]
+]]
+
+
 
 
 
