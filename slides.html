@@ -524,7 +524,7 @@ geom_point(
   show.legend = FALSE) + 
 geom_rug() + 
 facet_wrap(vars(season)) + 
-*theme_bw()
+theme_bw()
 ```
 
 ]]]
@@ -563,12 +563,12 @@ geom_point(
 geom_rug() + 
 facet_wrap(vars(season)) + 
 theme_bw() +
-*ggtitle(
-* label = "Sydney weather by season",
-* subtitle = "Data from 2013 to 2018"
-*) +
-*xlab("Temperature (Celsius)") +
-*ylab("Rainfall (mm)")
+*labs(
+* title = "Sydney weather by season",
+* subtitle = "Data from 2013 to 2018",
+* x = "Temperature (Celsius)",
+* y = "Rainfall (mm)"
+*) 
 ```
 
 ]]]
@@ -605,11 +605,12 @@ geom_point(
 geom_rug() + 
 facet_wrap(vars(season)) + 
 theme_bw() +
-ggtitle(
-  label = "Sydney weather by season",
-  subtitle = "Data from 2013 to 2018") + 
-xlab("Temperature (Celsius)") +
-ylab("Rainfall (mm)") 
+labs( 
+  title = "Sydney weather by season", 
+  subtitle = "Data from 2013 to 2018", 
+  x = "Temperature (Celsius)", 
+  y = "Rainfall (mm)" 
+) 
 ```
 ]]]
 ]]
@@ -689,12 +690,12 @@ pic &lt;- ggplot(
 ) + 
 facet_wrap(vars(season)) + 
 theme_bw() +
-ggtitle( 
-  label = "Sydney temperature by season",
-  subtitle = "Data from 2013 to 2018"
-) + 
-xlab("Temperature (Celsius)") +
-ylab("") 
+labs( 
+  title = "Sydney temperature by season", 
+  subtitle = "Data from 2013 to 2018", 
+  x = "Temperature (Celsius)", 
+  y = "" 
+) 
 ```
 
 ]]]
