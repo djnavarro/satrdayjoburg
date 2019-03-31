@@ -469,10 +469,9 @@ class: center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise 1: Testing the flexibility of ggplot2 &lt;br&gt;
+Exercise: Test drive with ggplot2 &lt;br&gt;
 https://djnavarro.github.io/some_url_here
 ]]
-
 
 
 
@@ -482,9 +481,806 @@ https://djnavarro.github.io/some_url_here
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[What's in a layer?]
+.font4[Introducing ggplot objects]
 ]]
 
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's create a plot with no layers!
+
+```r
+pic &lt;- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) + 
+xlab("Temperature (Celsius)") +
+ylab("") 
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's create a plot with no layers!
+
+```r
+pic &lt;- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) +
+xlab("Temperature (Celsius)") +
+ylab("") 
+
+*plot(pic)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/baseplot_plotted-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's create a plot with no layers!
+
+```r
+pic &lt;- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) +
+xlab("Temperature (Celsius)") +
+ylab("") 
+
+*print(pic)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/baseplot_printed-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+What are you????
+
+```r
+class(pic)
+```
+
+```
+## [1] "gg"     "ggplot"
+```
+]]]
+]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+What is in you????
+
+```r
+str(pic)
+```
+
+```
+## List of 9
+##  $ data       :Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame':	3690 obs. of  14 variables:
+##   ..$ council     : chr [1:3690] "Randwick Council" "Randwick Council" "Randwick Council" "Randwick Council" ...
+##   ..$ long        : num [1:3690] 151 151 151 151 151 ...
+##   ..$ lat         : num [1:3690] -33.9 -33.9 -33.9 -33.9 -33.9 ...
+##   ..$ date        : Date[1:3690], format: "2013-01-02" ...
+##   ..$ site        : chr [1:3690] "Clovelly Beach" "Clovelly Beach" "Clovelly Beach" "Clovelly Beach" ...
+##   ..$ beachbugs   : num [1:3690] 19 3 2 13 8 7 11 97 3 0 ...
+##   ..$ id          : num [1:3690] 25 25 25 25 25 25 25 25 25 25 ...
+##   ..$ region      : chr [1:3690] "Sydney City Ocean Beaches" "Sydney City Ocean Beaches" "Sydney City Ocean Beaches" "Sydney City Ocean Beaches" ...
+##   ..$ rain_mm     : num [1:3690] 0 0 0 0 0.6 0.1 8 7.2 0 0 ...
+##   ..$ temp_airport: num [1:3690] 23.4 30.3 31.4 46.4 26.6 25.7 22.2 24.8 29.1 25.8 ...
+##   ..$ year        : num [1:3690] 2013 2013 2013 2013 2013 ...
+##   ..$ month       : num [1:3690] 1 1 1 1 1 2 2 2 3 3 ...
+##   ..$ day         : num [1:3690] 2 6 12 18 30 5 11 23 7 25 ...
+##   ..$ season      : chr [1:3690] "Summer" "Summer" "Summer" "Summer" ...
+##   ..- attr(*, "spec")=
+##   .. .. cols(
+##   .. ..   council = col_character(),
+##   .. ..   long = col_double(),
+##   .. ..   lat = col_double(),
+##   .. ..   date = col_date(format = ""),
+##   .. ..   site = col_character(),
+##   .. ..   beachbugs = col_double(),
+##   .. ..   id = col_double(),
+##   .. ..   region = col_character(),
+##   .. ..   rain_mm = col_double(),
+##   .. ..   temp_airport = col_double(),
+##   .. ..   year = col_double(),
+##   .. ..   month = col_double(),
+##   .. ..   day = col_double(),
+##   .. ..   season = col_character()
+##   .. .. )
+##  $ layers     : list()
+##  $ scales     :Classes 'ScalesList', 'ggproto', 'gg' &lt;ggproto object: Class ScalesList, gg&gt;
+##     add: function
+##     clone: function
+##     find: function
+##     get_scales: function
+##     has_scale: function
+##     input: function
+##     n: function
+##     non_position_scales: function
+##     scales: list
+##     super:  &lt;ggproto object: Class ScalesList, gg&gt; 
+##  $ mapping    :List of 1
+##   ..$ x: language ~temp_airport
+##   .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
+##   ..- attr(*, "class")= chr "uneval"
+##  $ theme      :List of 59
+##   ..$ line                 :List of 6
+##   .. ..$ colour       : chr "black"
+##   .. ..$ size         : num 0.5
+##   .. ..$ linetype     : num 1
+##   .. ..$ lineend      : chr "butt"
+##   .. ..$ arrow        : logi FALSE
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_line" "element"
+##   ..$ rect                 :List of 5
+##   .. ..$ fill         : chr "white"
+##   .. ..$ colour       : chr "black"
+##   .. ..$ size         : num 0.5
+##   .. ..$ linetype     : num 1
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+##   ..$ text                 :List of 11
+##   .. ..$ family       : chr ""
+##   .. ..$ face         : chr "plain"
+##   .. ..$ colour       : chr "black"
+##   .. ..$ size         : num 11
+##   .. ..$ hjust        : num 0.5
+##   .. ..$ vjust        : num 0.5
+##   .. ..$ angle        : num 0
+##   .. ..$ lineheight   : num 0.9
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 0pt 0pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : logi FALSE
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.title.x         :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : num 1
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 2.75pt 0pt 0pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.title.x.top     :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : num 0
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 0pt 2.75pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.title.y         :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : num 1
+##   .. ..$ angle        : num 90
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 2.75pt 0pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.title.y.right   :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : num 0
+##   .. ..$ angle        : num -90
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 0pt 0pt 2.75pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.text            :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : chr "grey30"
+##   .. ..$ size         : 'rel' num 0.8
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : NULL
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : NULL
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.text.x          :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : num 1
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 2.2pt 0pt 0pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.text.x.top      :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : num 0
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 0pt 2.2pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.text.y          :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : num 1
+##   .. ..$ vjust        : NULL
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 2.2pt 0pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.text.y.right    :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : num 0
+##   .. ..$ vjust        : NULL
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 0pt 0pt 2.2pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ axis.ticks           :List of 6
+##   .. ..$ colour       : chr "grey20"
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ lineend      : NULL
+##   .. ..$ arrow        : logi FALSE
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_line" "element"
+##   ..$ axis.ticks.length    : 'unit' num 2.75pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..$ axis.line            : list()
+##   .. ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+##   ..$ axis.line.x          : NULL
+##   ..$ axis.line.y          : NULL
+##   ..$ legend.background    :List of 5
+##   .. ..$ fill         : NULL
+##   .. ..$ colour       : logi NA
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+##   ..$ legend.margin        : 'margin' num [1:4] 5.5pt 5.5pt 5.5pt 5.5pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..$ legend.spacing       : 'unit' num 11pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..$ legend.spacing.x     : NULL
+##   ..$ legend.spacing.y     : NULL
+##   ..$ legend.key           :List of 5
+##   .. ..$ fill         : chr "white"
+##   .. ..$ colour       : logi NA
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+##   ..$ legend.key.size      : 'unit' num 1.2lines
+##   .. ..- attr(*, "valid.unit")= int 3
+##   .. ..- attr(*, "unit")= chr "lines"
+##   ..$ legend.key.height    : NULL
+##   ..$ legend.key.width     : NULL
+##   ..$ legend.text          :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : 'rel' num 0.8
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : NULL
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : NULL
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ legend.text.align    : NULL
+##   ..$ legend.title         :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : num 0
+##   .. ..$ vjust        : NULL
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : NULL
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ legend.title.align   : NULL
+##   ..$ legend.position      : chr "right"
+##   ..$ legend.direction     : NULL
+##   ..$ legend.justification : chr "center"
+##   ..$ legend.box           : NULL
+##   ..$ legend.box.margin    : 'margin' num [1:4] 0cm 0cm 0cm 0cm
+##   .. ..- attr(*, "valid.unit")= int 1
+##   .. ..- attr(*, "unit")= chr "cm"
+##   ..$ legend.box.background: list()
+##   .. ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+##   ..$ legend.box.spacing   : 'unit' num 11pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..$ panel.background     :List of 5
+##   .. ..$ fill         : chr "white"
+##   .. ..$ colour       : logi NA
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+##   ..$ panel.border         :List of 5
+##   .. ..$ fill         : logi NA
+##   .. ..$ colour       : chr "grey20"
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+##   ..$ panel.spacing        : 'unit' num 5.5pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..$ panel.spacing.x      : NULL
+##   ..$ panel.spacing.y      : NULL
+##   ..$ panel.grid           :List of 6
+##   .. ..$ colour       : chr "grey92"
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ lineend      : NULL
+##   .. ..$ arrow        : logi FALSE
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_line" "element"
+##   ..$ panel.grid.minor     :List of 6
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : 'rel' num 0.5
+##   .. ..$ linetype     : NULL
+##   .. ..$ lineend      : NULL
+##   .. ..$ arrow        : logi FALSE
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_line" "element"
+##   ..$ panel.ontop          : logi FALSE
+##   ..$ plot.background      :List of 5
+##   .. ..$ fill         : NULL
+##   .. ..$ colour       : chr "white"
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+##   ..$ plot.title           :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : 'rel' num 1.2
+##   .. ..$ hjust        : num 0
+##   .. ..$ vjust        : num 1
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 0pt 5.5pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ plot.subtitle        :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : num 0
+##   .. ..$ vjust        : num 1
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 0pt 0pt 5.5pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ plot.caption         :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : 'rel' num 0.8
+##   .. ..$ hjust        : num 1
+##   .. ..$ vjust        : num 1
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 5.5pt 0pt 0pt 0pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ plot.tag             :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : 'rel' num 1.2
+##   .. ..$ hjust        : num 0.5
+##   .. ..$ vjust        : num 0.5
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : NULL
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ plot.tag.position    : chr "topleft"
+##   ..$ plot.margin          : 'margin' num [1:4] 5.5pt 5.5pt 5.5pt 5.5pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..$ strip.background     :List of 5
+##   .. ..$ fill         : chr "grey85"
+##   .. ..$ colour       : chr "grey20"
+##   .. ..$ size         : NULL
+##   .. ..$ linetype     : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_rect" "element"
+##   ..$ strip.placement      : chr "inside"
+##   ..$ strip.text           :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : chr "grey10"
+##   .. ..$ size         : 'rel' num 0.8
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : NULL
+##   .. ..$ angle        : NULL
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : 'margin' num [1:4] 4.4pt 4.4pt 4.4pt 4.4pt
+##   .. .. ..- attr(*, "valid.unit")= int 8
+##   .. .. ..- attr(*, "unit")= chr "pt"
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ strip.text.x         : NULL
+##   ..$ strip.text.y         :List of 11
+##   .. ..$ family       : NULL
+##   .. ..$ face         : NULL
+##   .. ..$ colour       : NULL
+##   .. ..$ size         : NULL
+##   .. ..$ hjust        : NULL
+##   .. ..$ vjust        : NULL
+##   .. ..$ angle        : num -90
+##   .. ..$ lineheight   : NULL
+##   .. ..$ margin       : NULL
+##   .. ..$ debug        : NULL
+##   .. ..$ inherit.blank: logi TRUE
+##   .. ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##   ..$ strip.switch.pad.grid: 'unit' num 2.75pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..$ strip.switch.pad.wrap: 'unit' num 2.75pt
+##   .. ..- attr(*, "valid.unit")= int 8
+##   .. ..- attr(*, "unit")= chr "pt"
+##   ..- attr(*, "class")= chr [1:2] "theme" "gg"
+##   ..- attr(*, "complete")= logi TRUE
+##   ..- attr(*, "validate")= logi TRUE
+##  $ coordinates:Classes 'CoordCartesian', 'Coord', 'ggproto', 'gg' &lt;ggproto object: Class CoordCartesian, Coord, gg&gt;
+##     aspect: function
+##     backtransform_range: function
+##     clip: on
+##     default: TRUE
+##     distance: function
+##     expand: TRUE
+##     is_free: function
+##     is_linear: function
+##     labels: function
+##     limits: list
+##     modify_scales: function
+##     range: function
+##     render_axis_h: function
+##     render_axis_v: function
+##     render_bg: function
+##     render_fg: function
+##     setup_data: function
+##     setup_layout: function
+##     setup_panel_params: function
+##     setup_params: function
+##     transform: function
+##     super:  &lt;ggproto object: Class CoordCartesian, Coord, gg&gt; 
+##  $ facet      :Classes 'FacetWrap', 'Facet', 'ggproto', 'gg' &lt;ggproto object: Class FacetWrap, Facet, gg&gt;
+##     compute_layout: function
+##     draw_back: function
+##     draw_front: function
+##     draw_labels: function
+##     draw_panels: function
+##     finish_data: function
+##     init_scales: function
+##     map_data: function
+##     params: list
+##     setup_data: function
+##     setup_params: function
+##     shrink: TRUE
+##     train_scales: function
+##     vars: function
+##     super:  &lt;ggproto object: Class FacetWrap, Facet, gg&gt; 
+##  $ plot_env   :&lt;environment: R_GlobalEnv&gt; 
+##  $ labels     :List of 4
+##   ..$ y       : chr ""
+##   ..$ x       : chr "Temperature (Celsius)"
+##   ..$ title   : chr "Sydney temperature by season"
+##   ..$ subtitle: chr "Data from 2013 to 2018"
+##  - attr(*, "class")= chr [1:2] "gg" "ggplot"
+```
+]]]
+]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Okaaaay .... what are the *names* of the things in you????
+
+```r
+names(pic)
+```
+
+```
+## [1] "data"        "layers"      "scales"      "mapping"     "theme"      
+## [6] "coordinates" "facet"       "plot_env"    "labels"
+```
+]]]
+]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Example 1: data
+
+```r
+pic$data
+```
+
+```
+## # A tibble: 3,690 x 14
+##    council  long   lat date       site  beachbugs    id region rain_mm
+##    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
+##  1 Randwi~  151. -33.9 2013-01-02 Clov~        19    25 Sydne~     0  
+##  2 Randwi~  151. -33.9 2013-01-06 Clov~         3    25 Sydne~     0  
+##  3 Randwi~  151. -33.9 2013-01-12 Clov~         2    25 Sydne~     0  
+##  4 Randwi~  151. -33.9 2013-01-18 Clov~        13    25 Sydne~     0  
+##  5 Randwi~  151. -33.9 2013-01-30 Clov~         8    25 Sydne~     0.6
+##  6 Randwi~  151. -33.9 2013-02-05 Clov~         7    25 Sydne~     0.1
+##  7 Randwi~  151. -33.9 2013-02-11 Clov~        11    25 Sydne~     8  
+##  8 Randwi~  151. -33.9 2013-02-23 Clov~        97    25 Sydne~     7.2
+##  9 Randwi~  151. -33.9 2013-03-07 Clov~         3    25 Sydne~     0  
+## 10 Randwi~  151. -33.9 2013-03-25 Clov~         0    25 Sydne~     0  
+## # ... with 3,680 more rows, and 5 more variables: temp_airport &lt;dbl&gt;,
+## #   year &lt;dbl&gt;, month &lt;dbl&gt;, day &lt;dbl&gt;, season &lt;chr&gt;
+```
+]]]
+]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Example 2: mapping
+
+```r
+pic$mapping
+```
+
+```
+## Aesthetic mapping: 
+## * `x` -&gt; `temp_airport`
+```
+]]]
+]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Quick overview: 
+- data: the actual data
+- layers: what to plot and how to render it
+- scales: how to render x-axis, colour
+- mapping: which variables map to which scales
+- theme: visual styling information
+- coordinates: how to lay it out? Cartesian, polar, etc?
+- facet: how to break the plot into facets
+- plot_env: environment in which to do computation
+- labels: axis labels, titles etc.
+]]]
+]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise: Peeking inside the gg object &lt;br&gt;
+https://djnavarro.github.io/some_url_here
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[What goes in a layer?]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Layers can compute things!
+
+```r
+pic 
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/no_histogram-1.png)&lt;!-- --&gt;
+
+]]
+]]
 
 
 
@@ -499,19 +1295,19 @@ class: split-40 bg-main1
 Layers can compute things!
 
 ```r
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-*geom_histogram() +
-facet_wrap(vars(season))
+*pic_hist &lt;- pic +
+* geom_histogram()
+
+pic_hist
 ```
 
 - histograms are not "in the data"
+- this is computed by the layer...
+- (...sort of)
 
 ]]]
 ]]
---
+
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
@@ -521,6 +1317,10 @@ facet_wrap(vars(season))
 ]]
 
 
+
+
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 class: split-40 bg-main1
@@ -531,16 +1331,14 @@ class: split-40 bg-main1
 Layers can compute things!
 
 ```r
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-*geom_density() +
-facet_wrap(vars(season))
-```
+pic_hist &lt;- pic + 
+  geom_histogram() 
 
-- histograms are not "in the data"
-- kernel density estimates are not "in the data"
+*pic_dens &lt;- pic +
+* geom_density()
+
+pic_dens
+```
 
 
 ]]]
@@ -557,75 +1355,72 @@ facet_wrap(vars(season))
 
 
 
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
-
 .pull.left[.pad1[.font2[
-Themes allow customisation
+The layer information... density
 
 ```r
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-geom_density() + 
-facet_wrap(vars(season)) + 
-*theme_bw()
+pic_dens$layers
 ```
+
+```
+## [[1]]
+## geom_density: na.rm = FALSE
+## stat_density: na.rm = FALSE
+## position_identity
+```
+
+Each layer specifies:
+- A geom: the graphical object to be drawn
+- A stat: what "statistic" it is applied to
+- A position: how it is placed
+
+]]]
+]]
+--
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The layer information... histogram
+
+```r
+pic_hist$layers
+```
+
+```
+## [[1]]
+## geom_bar: na.rm = FALSE
+## stat_bin: binwidth = NULL, bins = NULL, na.rm = FALSE, pad = FALSE
+## position_stack
+```
+
+&lt;br&gt;
+- There is hidden complexity!
+- It's a bit weird
+- We'll come back to this
 
 
 ]]]
 ]]
 
 
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-![](slides_files/figure-html/add_theme2222-1.png)&lt;!-- --&gt;
-
-]]
-]]
-
-
-
-
-
-
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
 
-.column.bg-main1[.content.vtop.center[
+class: center middle hide-slide-number
 
-.pull.left[.pad1[.font2[
-Layers can compute things
-
-```r
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-geom_density() + 
-facet_wrap(vars(season)) + 
-theme_bw() + 
-*ggtitle("Sydney temperature") +
-*xlab("Temperature") +
-*ylab("Density")
-```
-
-
-]]]
+.pad1[
+.font4[
+Exercise: Stats, geoms and layers &lt;br&gt;
+https://djnavarro.github.io/some_url_here
 ]]
 
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-![](slides_files/figure-html/add_titles222-1.png)&lt;!-- --&gt;
-
-]]
-]]
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;

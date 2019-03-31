@@ -524,10 +524,9 @@ class: center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise 1: Testing the flexibility of ggplot2 <br>
+Exercise: Test drive with ggplot2 <br>
 https://djnavarro.github.io/some_url_here
 ]]
-
 
 
 
@@ -537,9 +536,315 @@ https://djnavarro.github.io/some_url_here
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[What's in a layer?]
+.font4[Introducing ggplot objects]
 ]]
 
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's create a plot with no layers!
+```{r, eval=FALSE, message = FALSE}
+pic <- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) + 
+xlab("Temperature (Celsius)") +
+ylab("") 
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r baseplot_noprint, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic <- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) +
+xlab("Temperature (Celsius)") +
+ylab("") 
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's create a plot with no layers!
+```{r, eval=FALSE, message = FALSE}
+pic <- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) +
+xlab("Temperature (Celsius)") +
+ylab("") 
+
+plot(pic) #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r baseplot_plotted, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic <- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) +
+xlab("Temperature (Celsius)") +
+ylab("") 
+
+plot(pic)
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's create a plot with no layers!
+```{r, eval=FALSE, message = FALSE}
+pic <- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) +
+xlab("Temperature (Celsius)") +
+ylab("") 
+
+print(pic) #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r baseplot_printed, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic <- ggplot(
+  data = beaches,
+  mapping = aes(x = temp_airport) 
+) + 
+facet_wrap(vars(season)) + 
+theme_bw() +
+ggtitle( 
+  label = "Sydney temperature by season",
+  subtitle = "Data from 2013 to 2018"
+) +
+xlab("Temperature (Celsius)") +
+ylab("") 
+
+print(pic)
+```
+
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+What are you????
+```{r class_info, eval=TRUE, message = FALSE, echo=TRUE, cache=TRUE, warning=FALSE}
+class(pic)
+```
+]]]
+]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+What is in you????
+```{r str_info, eval=TRUE, message = FALSE, echo=TRUE, cache=TRUE, warning=FALSE}
+str(pic)
+```
+]]]
+]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Okaaaay .... what are the *names* of the things in you????
+```{r names_info, eval=TRUE, message = FALSE, echo=TRUE, cache=TRUE, warning=FALSE}
+names(pic)
+```
+]]]
+]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Example 1: data
+```{r, eval=TRUE, message = FALSE, echo=TRUE, cache=TRUE, warning=FALSE}
+pic$data
+```
+]]]
+]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Example 2: mapping
+```{r, eval=TRUE, message = FALSE, echo=TRUE, cache=TRUE, warning=FALSE}
+pic$mapping
+```
+]]]
+]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+Quick overview: 
+- data: the actual data
+- layers: what to plot and how to render it
+- scales: how to render x-axis, colour
+- mapping: which variables map to which scales
+- theme: visual styling information
+- coordinates: how to lay it out? Cartesian, polar, etc?
+- facet: how to break the plot into facets
+- plot_env: environment in which to do computation
+- labels: axis labels, titles etc.
+]]]
+]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise: Peeking inside the gg object <br>
+https://djnavarro.github.io/some_url_here
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[What goes in a layer?]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Layers can compute things!
+```{r, eval=FALSE, message = FALSE}
+pic 
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r no_histogram, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+pic
+```
+
+]]
+]]
 
 
 
@@ -553,33 +858,33 @@ class: split-40 bg-main1
 .pull.left[.pad1[.font2[
 Layers can compute things!
 ```{r, eval=FALSE, message = FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-geom_histogram() + #<<
-facet_wrap(vars(season))
+pic_hist <- pic +  #<<
+  geom_histogram() #<<
+
+pic_hist
 ```
 
 - histograms are not "in the data"
+- this is computed by the layer...
+- (...sort of)
 
 ]]]
 ]]
---
+
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 ```{r add_histogram, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-geom_histogram() + 
-facet_wrap(vars(season))
+pic_hist <- pic + geom_histogram()
+pic_hist
 ```
 
 ]]
 ]]
+
+
+
+
 
 
 <!-- *********** NEW SLIDE ************** -->
@@ -591,16 +896,14 @@ class: split-40 bg-main1
 .pull.left[.pad1[.font2[
 Layers can compute things!
 ```{r, eval=FALSE, message = FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-geom_density() + #<<
-facet_wrap(vars(season))
-```
+pic_hist <- pic + 
+  geom_histogram() 
 
-- histograms are not "in the data"
-- kernel density estimates are not "in the data"
+pic_dens <- pic + #<<
+  geom_density() #<<
+
+pic_dens
+```
 
 
 ]]]
@@ -610,53 +913,13 @@ facet_wrap(vars(season))
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 ```{r add_density, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) +  
-geom_density() + 
-facet_wrap(vars(season))
-```
+pic_hist <- pic + 
+  geom_histogram() 
 
-]]
-]]
+pic_dens <- pic + 
+  geom_density() #<<
 
-
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-class: split-40 bg-main1
-
-.column.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-Themes allow customisation
-```{r, eval=FALSE, message = FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-geom_density() + 
-facet_wrap(vars(season)) + 
-theme_bw() #<<
-```
-
-
-]]]
-]]
-
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-```{r add_theme2222, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) +  
-geom_density() + 
-facet_wrap(vars(season)) + 
-theme_bw()
+pic_dens
 ```
 
 ]]
@@ -669,47 +932,52 @@ theme_bw()
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
-
 .pull.left[.pad1[.font2[
-Layers can compute things
-```{r, eval=FALSE, message = FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) + 
-geom_density() + 
-facet_wrap(vars(season)) + 
-theme_bw() + 
-ggtitle("Sydney temperature") + #<<
-xlab("Temperature") + #<<
-ylab("Density") #<<
+The layer information... density
+```{r, eval=TRUE, message = FALSE}
+pic_dens$layers
 ```
+
+Each layer specifies:
+- A geom: the graphical object to be drawn
+- A stat: what "statistic" it is applied to
+- A position: how it is placed
+
+]]]
+]]
+--
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The layer information... histogram
+```{r, eval=TRUE, message = FALSE}
+pic_hist$layers
+```
+
+<br>
+- There is hidden complexity!
+- It's a bit weird
+- We'll come back to this
 
 
 ]]]
 ]]
 
 
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-```{r add_titles222, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
-ggplot(
-  data = beaches,
-  mapping = aes(x = temp_airport) 
-) +  
-geom_density() + 
-facet_wrap(vars(season)) + 
-theme_bw() +
-ggtitle("Sydney temperature") + #<<
-xlab("Temperature") + #<<
-ylab("Density") #<<
-```
+<!-- *********** NEW SLIDE ************** -->
+---
 
+class: center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise: Stats, geoms and layers <br>
+https://djnavarro.github.io/some_url_here
 ]]
-]]
+
 
 
 <!-- *********** NEW SLIDE ************** -->
