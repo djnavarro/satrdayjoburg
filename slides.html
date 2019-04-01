@@ -2178,6 +2178,115 @@ class: bg-main1 center middle hide-slide-number
 
 
 
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Animation]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Maps]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Extensions]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+&lt;br&gt;
+## [Writing ggplot2 extensions](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
+
+- Big ecosystem already
+- Don't reinvent the wheel
+- Learn some grid graphics
+- Be prepared for weirdness
+
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/ggplot2_extension.jpg", width="70%"&gt;
+
+[Link to ggplot2 extension document](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
+
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-60 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Geoms of (in)convenience?
+
+- override defaults is easy... 
+- ... but not always wise
+- Exercises will have a better example
+
+
+```r
+geom_dothistogram &lt;- function(
+  mapping = NULL, data = NULL, position = "stack", 
+  ..., binwidth = NULL, bins = NULL, na.rm = FALSE, 
+  show.legend = NA, inherit.aes = TRUE
+){
+  
+  layer &lt;- stat_bin(
+    mapping = mapping, data = data, 
+    geom = "point", position = position,
+    ..., binwidth = binwidth, bins = bins,
+    na.rm = na.rm, show.legend = show.legend,
+    inherit.aes = inherit.aes
+  )
+  
+  return(layer)
+}
+
+*pic + geom_dothistogram(size = 3)
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
