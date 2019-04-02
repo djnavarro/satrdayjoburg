@@ -1,6 +1,6 @@
 library(tidyverse)
-library(here)
-long_beaches <- read_csv(here("data","sydneybeaches2.csv"))
+library(lubridate)
+long_beaches <- read_csv(here::here("data","sydneybeaches2.csv"))
 
 beaches <- long_beaches %>%
   group_by(date, year, month, day, season) %>%
@@ -10,8 +10,13 @@ beaches <- long_beaches %>%
     enterococci = mean(beachbugs)
   ) %>% ungroup()
 
+day_of_year <- function(date, year) {
+  1+ as.numeric(date -lubridate::dmy(paste("1 1",year)))
+}
+
 beaches <- beaches %>%
   mutate(
+    day_num = day_of_year(date, year),
     month_num = month + (year - 2013)*12,
     month_name = month.name[month],
     season_name = season,
@@ -22,5 +27,5 @@ beaches <- beaches %>%
       month %in% 9:11 ~ 4)
   )
 
-beaches %>% write_csv(here("data","sydneybeaches3.csv"))
+beaches %>% write_csv(here::here("data","sydneybeaches3.csv"))
 
