@@ -982,10 +982,9 @@ class(pic)
 class: bg-main1
 
 .content.vtop.center[
-.pull.left[.pad1[.font2[
-What is in you????
+.pull.left[.pad4[.font1[
 ```{r str_info, eval=TRUE, message = FALSE, echo=TRUE, cache=TRUE, warning=FALSE}
-str(pic)
+summary(pic)
 ```
 ]]]
 ]
