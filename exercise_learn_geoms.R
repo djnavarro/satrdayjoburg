@@ -1,6 +1,6 @@
 library(tidyverse)
 library(here)
-beaches <- read_csv(here("data","sydneybeaches3.csv"))
+beaches <- read_csv(here::here("data","sydneybeaches3.csv"))
 
 # Exercise 1: I have set up the mappings and labels
 # for a plot similar to the ones from before
@@ -38,7 +38,82 @@ a5 <- a +
   geom_point(colour = "red", size = 5)
 
 
+# Here is another one:
+b <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = day_num,
+    y = temperature,
+    group = year,
+    colour = year
+  )
+)
 
+# have a look at this
+b1 <- b +
+  geom_point(size = 2) +
+  geom_smooth()
+
+# it's hard to read
+#  - remove the ribbons?
+#  - reorder the two geoms
+
+b2 <- b +
+  geom_smooth(se = FALSE) +
+  geom_point(size = 2)
+
+# override the grouping for
+# geom_smooth but not geom_point
+
+b3 <- b +
+  geom_smooth(
+    mapping = aes(group = 1),
+    se = FALSE) +
+  geom_point(size = 2)
+
+
+
+
+# Here is another one:
+c <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = day_num,
+    y = temperature
+  )
+)
+
+c1 <- c + geom_bin2d()
+# ompare to hexbin - but we need the package!!
+
+
+# Here is another one:
+d <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = reorder(month_name, month),
+    y = temperature
+  )
+) +
+  xlab("Month")
+
+d1 <- d + geom_boxplot()
+d2 <- d + geom_violin()
+
+# fill the violins by season?
+d3 <- d + geom_violin(aes(fill = season_name))
+
+# add the raw data...
+d4 <- d +
+  geom_violin() +
+  geom_point()
+
+# ... exercise: use geom_jitter here.
+
+# add the means to the plot: [they're not ready for this???]
+d5 <- d +
+  geom_violin() +
+  geom_point(stat = "summary")
 
 
 
