@@ -1,4 +1,8 @@
-weather <- beaches %>%
+library(tidyverse)
+library(here)
+long_beaches <- read_csv(here("data","sydneybeaches2.csv"))
+
+beaches <- long_beaches %>%
   group_by(date, year, month, day, season) %>%
   summarise(
     rainfall = mean(rain_mm),
@@ -6,8 +10,9 @@ weather <- beaches %>%
     enterococci = mean(beachbugs)
   ) %>% ungroup()
 
-weather <- weather %>%
+beaches <- beaches %>%
   mutate(
+    month_num = month + (year - 2013)*12,
     month_name = month.name[month],
     season_name = season,
     season = case_when(
@@ -17,5 +22,5 @@ weather <- weather %>%
       month %in% 9:11 ~ 4)
   )
 
-weather %>% write_csv(here("data","sydneybeaches3.csv"))
+beaches %>% write_csv(here("data","sydneybeaches3.csv"))
 
