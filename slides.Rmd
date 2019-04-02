@@ -20,8 +20,7 @@ output:
 options(htmltools.dir.version = FALSE)
 library(here)
 library(tidyverse)
-frames <- read_csv(here("data","frames_ex2.csv"))
-beaches <- read_csv(here("data","sydneybeaches2.csv"))
+beaches <- read_csv(here("data","sydneybeaches3.csv"))
 ```
 
 class: split-two bg-main1
@@ -72,7 +71,7 @@ class: bg-main1 middle center
 
 .pull.left[.pad1[.font2[
 ```{r beachesdata, eval=TRUE, message=FALSE}
-beaches <- here("data","sydneybeaches2.csv") %>% read_csv() 
+beaches <- here("data","sydneybeaches3.csv") %>% read_csv() 
 beaches
 ```
 ]]]
@@ -202,8 +201,8 @@ Specify the aesthetics
 ggplot(
   data = beaches,
   mapping = aes(      #<<
-    x = temp_airport, #<<
-    y = rain_mm       #<<
+    x = temperature, #<<
+    y = rainfall       #<<
   )                   #<<
 )
 ```
@@ -222,8 +221,8 @@ ggplot(
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 )
 ```
@@ -247,8 +246,8 @@ Add a layer
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point() #<<
@@ -263,8 +262,8 @@ geom_point() #<<
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point() #<<
@@ -287,8 +286,8 @@ Add layer-specific aesthetics
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(size = 3) #<<
@@ -303,8 +302,8 @@ geom_point(size = 3) #<<
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(size = 3) #<<
@@ -330,12 +329,12 @@ Add layer-specific mappings
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), #<<
+  mapping = aes(colour = season_name), #<<
   size = 3
 )   
 ```
@@ -349,12 +348,12 @@ geom_point(
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), #<<
+  mapping = aes(colour = season_name), #<<
   size = 3
 ) 
 ```
@@ -379,12 +378,12 @@ Add more layers
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season),
+  mapping = aes(colour = season_name),
   size = 3
 ) + 
 geom_rug() #<<
@@ -399,12 +398,12 @@ geom_rug() #<<
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 3
 ) + 
 geom_rug()
@@ -427,16 +426,16 @@ Split into facets
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2
 ) + 
 geom_rug() + 
-facet_wrap(vars(season)) #<<
+facet_wrap(vars(season_name)) #<<
 ```
 
 ]]]
@@ -448,16 +447,16 @@ facet_wrap(vars(season)) #<<
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2
 ) + 
 geom_rug() + 
-facet_wrap(vars(season)) #<<
+facet_wrap(vars(season_name)) #<<
 ```
 
 ]]
@@ -479,17 +478,17 @@ Remove an unwanted legend
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE #<<
 ) + 
 geom_rug() + 
-facet_wrap(vars(season)) 
+facet_wrap(vars(season_name)) 
 ```
 
 ]]]
@@ -501,17 +500,17 @@ facet_wrap(vars(season))
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE #<<
 ) + 
 geom_rug() + 
-facet_wrap(vars(season)) 
+facet_wrap(vars(season_name)) 
 ```
 
 ]]
@@ -531,17 +530,17 @@ Modify the theme
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE 
 ) + 
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() #<<
 ```
 
@@ -554,17 +553,17 @@ theme_bw() #<<
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE #<<
 ) +
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() 
 ```
 
@@ -587,14 +586,14 @@ class: split-50 bg-main1
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm)) + 
+    x = temperature, 
+    y = rainfall)) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE) + 
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw()
 ```
 
@@ -607,17 +606,17 @@ theme_bw()
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE #<<
 ) +
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() 
 ```
 
@@ -640,14 +639,14 @@ Make nicer titles
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm)) + 
+    x = temperature, 
+    y = rainfall)) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE) +  
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 labs( #<<
   title = "Sydney weather by season", #<<
@@ -667,17 +666,17 @@ labs( #<<
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE
 ) +
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() + 
 labs( #<<
   title = "Sydney weather by season", #<<
@@ -704,14 +703,14 @@ Done!
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm)) + 
+    x = temperature, 
+    y = rainfall)) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE) +  
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 labs( 
   title = "Sydney weather by season", 
@@ -729,17 +728,17 @@ labs(
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE
 ) +
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() + 
 labs( #<<
   title = "Sydney weather by season", #<<
@@ -815,9 +814,9 @@ Let's create a plot with no layers!
 ```{r, eval=FALSE, message = FALSE}
 pic <- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 labs( 
   title = "Sydney temperature by season", 
@@ -835,9 +834,9 @@ labs(
 ```{r baseplot_noprint, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
 pic <- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 labs( 
   title = "Sydney temperature by season", 
@@ -865,9 +864,9 @@ Let's create a plot with no layers!
 ```{r, eval=FALSE, message = FALSE}
 pic <- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 ggtitle( 
   label = "Sydney temperature by season",
@@ -887,9 +886,9 @@ plot(pic) #<<
 ```{r baseplot_plotted, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
 pic <- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 ggtitle( 
   label = "Sydney temperature by season",
@@ -919,9 +918,9 @@ Let's create a plot with no layers!
 ```{r, eval=FALSE, message = FALSE}
 pic <- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 ggtitle( 
   label = "Sydney temperature by season",
@@ -941,9 +940,9 @@ print(pic) #<<
 ```{r baseplot_printed, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
 pic <- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 ggtitle( 
   label = "Sydney temperature by season",
@@ -1503,9 +1502,9 @@ class: split-40 bg-main1
 Some preprocessing...
 ```{r, eval=TRUE, message = FALSE}
 rain <- beaches %>% 
-  group_by(month, year, season) %>%
+  group_by(month, year, season_name) %>%
   summarise(
-    rain = mean(rain_mm)
+    rain = mean(rainfall)
   ) %>%
   ungroup() %>%
   spread(
@@ -1522,9 +1521,9 @@ rain <- beaches %>%
 .pad1[.font2[
 ```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
 rain <- beaches %>% 
-  group_by(month, year, season) %>%
+  group_by(month, year, season_name) %>%
   summarise(
-    temp = mean(rain_mm)
+    temp = mean(rainfall)
   ) %>%
   ungroup() %>%
   spread(
@@ -1552,7 +1551,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) 
@@ -1570,7 +1569,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5)
@@ -1594,7 +1593,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1616,7 +1615,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1646,7 +1645,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1669,7 +1668,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1699,7 +1698,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1725,7 +1724,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1757,7 +1756,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1783,7 +1782,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1819,8 +1818,8 @@ ggplot(
   mapping = aes(
     x =  month,
     y = `2017`,
-    colour = season,
-    fill = season
+    colour = season_name,
+    fill = season_name
   )
 ) + 
 geom_col()
@@ -1838,8 +1837,8 @@ ggplot(
   mapping = aes(
     x =  month,
     y = `2017`,
-    colour = season,
-    fill = season
+    colour = season_name,
+    fill = season_name
   )
 ) + 
 geom_col() 
@@ -1867,8 +1866,8 @@ ggplot(
   mapping = aes(
     x =  month,
     y = `2017`,
-    colour = season,
-    fill = season
+    colour = season_name,
+    fill = season_name
   )
 ) + 
 geom_col() + 
@@ -1888,8 +1887,8 @@ ggplot(
   mapping = aes(
     x =  month,
     y = `2017`,
-    colour = season,
-    fill = season    
+    colour = season_name,
+    fill = season_name    
   )
 ) + 
 geom_col() + 

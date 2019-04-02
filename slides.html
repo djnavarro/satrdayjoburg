@@ -74,26 +74,26 @@ class: bg-main1 middle center
 .pull.left[.pad1[.font2[
 
 ```r
-beaches &lt;- here("data","sydneybeaches2.csv") %&gt;% read_csv() 
+beaches &lt;- here("data","sydneybeaches3.csv") %&gt;% read_csv() 
 beaches
 ```
 
 ```
-## # A tibble: 3,690 x 14
-##    council  long   lat date       site  beachbugs    id region rain_mm
-##    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
-##  1 Randwi~  151. -33.9 2013-01-02 Clov~        19    25 Sydne~     0  
-##  2 Randwi~  151. -33.9 2013-01-06 Clov~         3    25 Sydne~     0  
-##  3 Randwi~  151. -33.9 2013-01-12 Clov~         2    25 Sydne~     0  
-##  4 Randwi~  151. -33.9 2013-01-18 Clov~        13    25 Sydne~     0  
-##  5 Randwi~  151. -33.9 2013-01-30 Clov~         8    25 Sydne~     0.6
-##  6 Randwi~  151. -33.9 2013-02-05 Clov~         7    25 Sydne~     0.1
-##  7 Randwi~  151. -33.9 2013-02-11 Clov~        11    25 Sydne~     8  
-##  8 Randwi~  151. -33.9 2013-02-23 Clov~        97    25 Sydne~     7.2
-##  9 Randwi~  151. -33.9 2013-03-07 Clov~         3    25 Sydne~     0  
-## 10 Randwi~  151. -33.9 2013-03-25 Clov~         0    25 Sydne~     0  
-## # ... with 3,680 more rows, and 5 more variables: temp_airport &lt;dbl&gt;,
-## #   year &lt;dbl&gt;, month &lt;dbl&gt;, day &lt;dbl&gt;, season &lt;chr&gt;
+## # A tibble: 344 x 10
+##    date        year month   day season rainfall temperature enterococci
+##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 2013-01-02  2013     1     2      1      0          23.4         6.7
+##  2 2013-01-06  2013     1     6      1      0          30.3         2  
+##  3 2013-01-12  2013     1    12      1      0          31.4        69.1
+##  4 2013-01-18  2013     1    18      1      0          46.4         9  
+##  5 2013-01-24  2013     1    24      1      0          27.5        33.9
+##  6 2013-01-30  2013     1    30      1      0.6        26.6        26.5
+##  7 2013-02-05  2013     2     5      1      0.1        25.7        66.9
+##  8 2013-02-11  2013     2    11      1      8          22.2       118. 
+##  9 2013-02-17  2013     2    17      1     13.6        26.3        75  
+## 10 2013-02-23  2013     2    23      1      7.2        24.8       311. 
+## # ... with 334 more rows, and 2 more variables: month_name &lt;chr&gt;,
+## #   season_name &lt;chr&gt;
 ```
 ]]]
 
@@ -219,8 +219,8 @@ Specify the aesthetics
 ggplot(
   data = beaches,
 * mapping = aes(
-*   x = temp_airport,
-*   y = rain_mm
+*   x = temperature,
+*   y = rainfall
 * )
 )
 ```
@@ -257,8 +257,8 @@ Add a layer
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 *geom_point()
@@ -289,8 +289,8 @@ Add layer-specific aesthetics
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 *geom_point(size = 3)
@@ -324,12 +324,12 @@ Add layer-specific mappings
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-* mapping = aes(colour = season),
+* mapping = aes(colour = season_name),
   size = 3
 )   
 ```
@@ -362,12 +362,12 @@ Add more layers
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season),
+  mapping = aes(colour = season_name),
   size = 3
 ) + 
 *geom_rug()
@@ -398,16 +398,16 @@ Split into facets
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2
 ) + 
 geom_rug() + 
-*facet_wrap(vars(season))
+*facet_wrap(vars(season_name))
 ```
 
 ]]]
@@ -437,17 +437,17 @@ Remove an unwanted legend
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
 * show.legend = FALSE
 ) + 
 geom_rug() + 
-facet_wrap(vars(season)) 
+facet_wrap(vars(season_name)) 
 ```
 
 ]]]
@@ -475,17 +475,17 @@ Modify the theme
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm
+    x = temperature, 
+    y = rainfall
   ) 
 ) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE 
 ) + 
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 *theme_bw()
 ```
 
@@ -516,14 +516,14 @@ class: split-50 bg-main1
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm)) + 
+    x = temperature, 
+    y = rainfall)) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE) + 
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw()
 ```
 
@@ -554,14 +554,14 @@ Make nicer titles
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm)) + 
+    x = temperature, 
+    y = rainfall)) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE) +  
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 *labs(
 * title = "Sydney weather by season",
@@ -596,14 +596,14 @@ Done!
 ggplot(
   data = beaches,
   mapping = aes(
-    x = temp_airport, 
-    y = rain_mm)) + 
+    x = temperature, 
+    y = rainfall)) + 
 geom_point(
-  mapping = aes(colour = season), 
+  mapping = aes(colour = season_name), 
   size = 2,
   show.legend = FALSE) +  
 geom_rug() + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 labs( 
   title = "Sydney weather by season", 
@@ -686,9 +686,9 @@ Let's create a plot with no layers!
 ```r
 pic &lt;- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 labs( 
   title = "Sydney temperature by season", 
@@ -724,9 +724,9 @@ Let's create a plot with no layers!
 ```r
 pic &lt;- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 ggtitle( 
   label = "Sydney temperature by season",
@@ -764,9 +764,9 @@ Let's create a plot with no layers!
 ```r
 pic &lt;- ggplot(
   data = beaches,
-  mapping = aes(x = temp_airport) 
+  mapping = aes(x = temperature) 
 ) + 
-facet_wrap(vars(season)) + 
+facet_wrap(vars(season_name)) + 
 theme_bw() +
 ggtitle( 
   label = "Sydney temperature by season",
@@ -824,9 +824,9 @@ summary(pic)
 ```
 
 ```
-## data: council, long, lat, date, site, beachbugs, id, region,
-##   rain_mm, temp_airport, year, month, day, season [3690x14]
-## mapping:  x = ~temp_airport
+## data: date, year, month, day, season, rainfall, temperature,
+##   enterococci, month_name, season_name [344x10]
+## mapping:  x = ~temperature
 ## faceting: &lt;ggproto object: Class FacetWrap, Facet, gg&gt;
 ##     compute_layout: function
 ##     draw_back: function
@@ -885,21 +885,21 @@ pic$data
 ```
 
 ```
-## # A tibble: 3,690 x 14
-##    council  long   lat date       site  beachbugs    id region rain_mm
-##    &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;
-##  1 Randwi~  151. -33.9 2013-01-02 Clov~        19    25 Sydne~     0  
-##  2 Randwi~  151. -33.9 2013-01-06 Clov~         3    25 Sydne~     0  
-##  3 Randwi~  151. -33.9 2013-01-12 Clov~         2    25 Sydne~     0  
-##  4 Randwi~  151. -33.9 2013-01-18 Clov~        13    25 Sydne~     0  
-##  5 Randwi~  151. -33.9 2013-01-30 Clov~         8    25 Sydne~     0.6
-##  6 Randwi~  151. -33.9 2013-02-05 Clov~         7    25 Sydne~     0.1
-##  7 Randwi~  151. -33.9 2013-02-11 Clov~        11    25 Sydne~     8  
-##  8 Randwi~  151. -33.9 2013-02-23 Clov~        97    25 Sydne~     7.2
-##  9 Randwi~  151. -33.9 2013-03-07 Clov~         3    25 Sydne~     0  
-## 10 Randwi~  151. -33.9 2013-03-25 Clov~         0    25 Sydne~     0  
-## # ... with 3,680 more rows, and 5 more variables: temp_airport &lt;dbl&gt;,
-## #   year &lt;dbl&gt;, month &lt;dbl&gt;, day &lt;dbl&gt;, season &lt;chr&gt;
+## # A tibble: 344 x 10
+##    date        year month   day season rainfall temperature enterococci
+##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 2013-01-02  2013     1     2      1      0          23.4         6.7
+##  2 2013-01-06  2013     1     6      1      0          30.3         2  
+##  3 2013-01-12  2013     1    12      1      0          31.4        69.1
+##  4 2013-01-18  2013     1    18      1      0          46.4         9  
+##  5 2013-01-24  2013     1    24      1      0          27.5        33.9
+##  6 2013-01-30  2013     1    30      1      0.6        26.6        26.5
+##  7 2013-02-05  2013     2     5      1      0.1        25.7        66.9
+##  8 2013-02-11  2013     2    11      1      8          22.2       118. 
+##  9 2013-02-17  2013     2    17      1     13.6        26.3        75  
+## 10 2013-02-23  2013     2    23      1      7.2        24.8       311. 
+## # ... with 334 more rows, and 2 more variables: month_name &lt;chr&gt;,
+## #   season_name &lt;chr&gt;
 ```
 ]]]
 ]
@@ -921,7 +921,7 @@ pic$mapping
 
 ```
 ## Aesthetic mapping: 
-## * `x` -&gt; `temp_airport`
+## * `x` -&gt; `temperature`
 ```
 ]]]
 ]
@@ -1383,9 +1383,9 @@ Some preprocessing...
 
 ```r
 rain &lt;- beaches %&gt;% 
-  group_by(month, year, season) %&gt;%
+  group_by(month, year, season_name) %&gt;%
   summarise(
-    rain = mean(rain_mm)
+    rain = mean(rainfall)
   ) %&gt;%
   ungroup() %&gt;%
   spread(
@@ -1403,20 +1403,20 @@ rain &lt;- beaches %&gt;%
 
 ```
 ## # A tibble: 12 x 8
-##    month season `2013` `2014` `2015` `2016` `2017`  `2018`
-##    &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-##  1     1 Summer  0.10   0.933   4.6   12.1   2.08   4.24  
-##  2     2 Summer  7.22   6.6     2.6    9.24  6.42   0.16  
-##  3     3 Autumn  5.5    4.53    5.75  12.3   7.62   3.4   
-##  4     4 Autumn  4.08   2.4     4.2    6.16 11.7    0.4   
-##  5     5 Autumn  1.93   0.12    2.22   0.05  0.302  0.0167
-##  6     6 Winter 23.8    2.92    2.96   2.68 11.5    4.04  
-##  7     7 Winter  0      0       3.23   8.68  0      0.02  
-##  8     8 Winter  2.08   5.43   12.4    0.2   1.56   0.633 
-##  9     9 Spring  0.374 NA       6.32   2.3   0.3    0.08  
-## 10    10 Spring  9.2    1.5     1.12   1.30  5.85  18     
-## 11    11 Spring NA      1.5     3.32   2.32  0.12  NA     
-## 12    12 Summer  0      5.05   17.6    6.72  0     NA
+##    month season_name `2013` `2014` `2015` `2016` `2017`  `2018`
+##    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+##  1     1 Summer        0.10  0.933   4.6   12.1   2.08   4.24  
+##  2     2 Summer        7.22  6.6     2.6    9.24  6.42   0.16  
+##  3     3 Autumn        5.72  4.53    5.75  12.3   7.62   3.4   
+##  4     4 Autumn        4.08  2.4     4.2    6.16 11.7    0.4   
+##  5     5 Autumn        1.97  0.12    2.22   0.05  0.317  0.0167
+##  6     6 Winter       23.3   2.85    2.96   4.27 11.5    4.04  
+##  7     7 Winter        0     0       3.23   8.68  0      0.02  
+##  8     8 Winter        2.08  5.43   12.4    0.2   1.56   0.633 
+##  9     9 Spring        0.36 NA       6.32   2.3   0.3    0.08  
+## 10    10 Spring        9.2   1.5     1.12   1.30  4.97  18     
+## 11    11 Spring       NA     1.5     3.32   2.28  0.12  NA     
+## 12    12 Summer        0     5.05   17.6    6.72  0     NA
 ```
 ]]
 ]]
@@ -1437,7 +1437,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) 
@@ -1470,7 +1470,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1509,7 +1509,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1548,7 +1548,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1589,7 +1589,7 @@ ggplot(
   mapping = aes(
     x = `2013`,
     y = `2017`,
-    colour = season
+    colour = season_name
   )
 ) + 
 geom_point(size = 5) + 
@@ -1634,8 +1634,8 @@ ggplot(
   mapping = aes(
     x =  month,
     y = `2017`,
-    colour = season,
-    fill = season
+    colour = season_name,
+    fill = season_name
   )
 ) + 
 geom_col()
@@ -1672,8 +1672,8 @@ ggplot(
   mapping = aes(
     x =  month,
     y = `2017`,
-    colour = season,
-    fill = season
+    colour = season_name,
+    fill = season_name
   )
 ) + 
 geom_col() + 
