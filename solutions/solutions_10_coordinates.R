@@ -20,20 +20,17 @@ b <- ggplot(
   geom_point() +
   geom_abline(slope=1, intercept=0)
 
-
-
 # Exercise 1: Verify that this is identical to the original
 # plot
 b + coord_cartesian()
-
-
 
 # Exercise 2: Put the two sets of coordinates on the same scale
 
 #### YOUR-CODE-HERE ####
 
+# Solution 2:
 
-
+b + coord_equal()
 
 # Exercise 3: Put the two sets of coordinates on the same scale
 # and also make sure they have the same axis limits (from 1 to
@@ -42,3 +39,6 @@ b + coord_cartesian()
 
 #### YOUR-CODE-HERE ####
 
+# Solution 3:
+
+b + coord_equal(xlim = c(1,1000), ylim=c(1,1000))
