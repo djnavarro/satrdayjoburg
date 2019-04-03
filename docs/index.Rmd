@@ -22,7 +22,23 @@ Participants will need a recent installation of R and RStudio. Package dependenc
 - `usethis`
 - `scico`
 
-A link to the course material will appear shortly!
+A link to the course material will appear shortly! The content will be organised around a series of hands on exercises, each associated with a brief discussion of core concepts in ggplot2 and gganimate. The key topics are:
+
+- Introduction to ggplot2
+- Understanding aesthetics
+- Understanding geoms
+- Structure of a plot layer
+- Controlling geom positions
+- Facetting plots
+- Statistical transformations
+- Customising position scales
+- Customising colour/fill scales
+- Co-ordinate transformations
+- Customising the theme
+- Writing ggplot2 extensions (in brief)
+- Introduction to gganimate 
+- Exploring gganimate functionality
+- Understanding how tweening works (*maybe)
 
 
 
