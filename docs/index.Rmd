@@ -1,11 +1,14 @@
 ---
-title: '<div class="jumbotron"><h1 class="title toc-ignore display-3" align="center">Data Visualisation in R</h1><p class="lead" align="center">Danielle Navarro</p></div>'
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3" align="center">Data Visualisation in R</h1><p class="lead" align="center">Danielle Navarro <a href="https://twitter.com/djnavarro"><i class="fab fa-twitter"></i></a></p></div>'
 output:
   html_document:
+    includes:
+      in_header: header.html        
     theme: flatly
     highlight: textmate
     css: mystyle.css
-pagetitle: "Data Visualisation"
+    self_contained: false    
+pagetitle: "Data Visualisation in R"
 ---
 
 ```{r,echo=FALSE}
@@ -37,6 +40,19 @@ The course materials are can be downloaded as a zip file [here](./datavis.zip), 
 usethis::use_course("https://djnavarro.github.io/satrdayjoburg/datavis.zip")
 ```
 
-The current version of the course is not *quite* complete (my slides are missing and one set of exercises isn't done yet) but it should cover most of the worskhop content.
+The current version of the course is not *quite* complete (my slides are missing and one set of exercises isn't done yet) but it should cover most of the workshop content.
 
+
+
+<br>
+<center>
+---- &nbsp;&nbsp;
+<a href="https://twitter.com/djnavarro"><i class="fab fa-twitter"></i></a> &nbsp;
+<a href="https://compcogscisydney.org"><i class="fas fa-home"></i></a> &nbsp;
+<a href="https://github.com/djnavarro"><i class="fab fa-github"></i></a> &nbsp;
+<a href="mailto:d.navarro@unsw.edu.au"><i class="fas fa-paper-plane"></i></a>
+&nbsp;&nbsp; ----
+</center>
+<br>
+<br>
 
