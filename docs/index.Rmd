@@ -12,33 +12,31 @@ pagetitle: "Data Visualisation"
 rm(list=objects()) # start with a clean workspace
 ```
 
-Participants will need a recent installation of R and RStudio. Package dependencies are listed below, all of which should be available on CRAN.
+This site has links to all the course materials associated with the workshop on *"Data visualisation in R, from ggplot2 to gganimate"* as part of the [2019 satRday in Johannesburg](https://joburg2019.satrdays.org) meeting. It's intended to be a hands on workshop will provide an introduction to data visualisation in R. The core of the workshop will focus on creating clean data visualisations with `ggplot2`, and turning them into animations with gganimate. The workshop is aimed at a beginner to intermediate level. Some prior familiarity with `tidyverse` would be helpful but not assumed.
 
-- `tidyverse`
-- `here`
-- `hexbin`
-- `gganimate`
-- `sf`
-- `usethis`
-- `scico`
+## Package dependencies
 
-A link to the course material will appear shortly! The content will be organised around a series of hands on exercises, each associated with a brief discussion of core concepts in ggplot2 and gganimate. The key topics are:
+Participants will need a recent installation of R and RStudio. The package dependencies are listed below, all of which should be available on CRAN. To verify that you have them installed you can run the following:
 
-- Introduction to ggplot2
-- Understanding aesthetics
-- Understanding geoms
-- Structure of a plot layer
-- Controlling geom positions
-- Facetting plots
-- Statistical transformations
-- Customising position scales
-- Customising colour/fill scales
-- Co-ordinate transformations
-- Customising the theme
-- Writing ggplot2 extensions (in brief)
-- Introduction to gganimate 
-- Exploring gganimate functionality
-- Understanding how tweening works (*maybe)
+```{r, eval=FALSE}
+library(tidyverse)
+library(here)
+library(hexbin)
+library(gganimate)
+library(sf)
+library(usethis)
+library(scico)
+```
 
+## Course materials
+
+The course materials are can be downloaded as a zip file [here](./datavis.zip), or alternatively to download them directly within R and automatically open the correct project file:
+
+```{r, eval=FALSE}
+# install.packages(usethis) 
+usethis::use_course("https://djnavarro.github.io/satrdayjoburg/datavis.zip")
+```
+
+The current version of the course is not *quite* complete (my slides are missing and one set of exercises isn't done yet) but it should cover most of the worskhop content.
 
 

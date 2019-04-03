@@ -402,34 +402,25 @@ Danielle Navarro
 </div>
 
 
-<p>Participants will need a recent installation of R and RStudio. Package dependencies are listed below, all of which should be available on CRAN.</p>
-<ul>
-<li><code>tidyverse</code></li>
-<li><code>here</code></li>
-<li><code>hexbin</code></li>
-<li><code>gganimate</code></li>
-<li><code>sf</code></li>
-<li><code>usethis</code></li>
-<li><code>scico</code></li>
-</ul>
-<p>A link to the course material will appear shortly! The content will be organised around a series of hands on exercises, each associated with a brief discussion of core concepts in ggplot2 and gganimate. The key topics:</p>
-<ul>
-<li>Introduction to ggplot2</li>
-<li>Understanding aesthetics</li>
-<li>Understanding geoms</li>
-<li>Structure of a plot layer</li>
-<li>Controlling geom positions</li>
-<li>Facetting plots</li>
-<li>Statistical transformations</li>
-<li>Customising position scales</li>
-<li>Customising colour/fill scales</li>
-<li>Co-ordinate transformations</li>
-<li>Customising the theme</li>
-<li>Writing ggplot2 extensions (in brief)</li>
-<li>Introduction to gganimate</li>
-<li>Exploring gganimate functionality</li>
-<li>Understanding how tweening works (*maybe)</li>
-</ul>
+<p>This site has links to all the course materials associated with the workshop on <em>“Data visualisation in R, from ggplot2 to gganimate”</em> as part of the <a href="https://joburg2019.satrdays.org">2019 satRday in Johannesburg</a> meeting. It’s intended to be a hands on workshop will provide an introduction to data visualisation in R. The core of the workshop will focus on creating clean data visualisations with <code>ggplot2</code>, and turning them into animations with gganimate. The workshop is aimed at a beginner to intermediate level. Some prior familiarity with <code>tidyverse</code> would be helpful but not assumed.</p>
+<div id="package-dependencies" class="section level2">
+<h2>Package dependencies</h2>
+<p>Participants will need a recent installation of R and RStudio. The package dependencies are listed below, all of which should be available on CRAN. To verify that you have them installed you can run the following:</p>
+<pre class="r"><code>library(tidyverse)
+library(here)
+library(hexbin)
+library(gganimate)
+library(sf)
+library(usethis)
+library(scico)</code></pre>
+</div>
+<div id="course-materials" class="section level2">
+<h2>Course materials</h2>
+<p>The course materials are can be downloaded as a zip file <a href="./datavis.zip">here</a>, or alternatively to download them directly within R and automatically open the correct project file:</p>
+<pre class="r"><code># install.packages(usethis) 
+usethis::use_course(&quot;https://djnavarro.github.io/satrdayjoburg/datavis.zip&quot;)</code></pre>
+<p>The current version of the course is not <em>quite</em> complete (my slides are missing and one set of exercises isn’t done yet) but it should cover most of the worskhop content.</p>
+</div>
 
 
 
