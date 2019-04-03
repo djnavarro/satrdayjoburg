@@ -44,7 +44,8 @@ c <- a + transition_reveal(date)
 
 #### YOUR-CODE-HERE ####
 
-
+# Solution:
+d <- a + transition_reveal(season)
 
 
 # An alternative one possibility is to group the
@@ -79,9 +80,11 @@ f <- e + transition_reveal(
 
 #### YOUR-CODE-HERE ####
 
-
-
-
+# Solution:
+g <- e + transition_reveal(
+  along = month_num,
+  range = c(0, 71)
+)
 
 
 # Just for fun let's one more with enterococci levels!
