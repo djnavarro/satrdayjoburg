@@ -52,26 +52,26 @@ c <- b + transition_time(time = Time)
 # what class is this new object?
 class(c)
 
-# printing it renders the animation
-print(c)
+# Printing c will render the animation. Try it and
+# see what happens
 
-# saving to file is similar to ggsave:
-anim_save(here("output", "brownian1.gif"))
+# After you've printe it, you can saving to file in
+# a fashion that is similar to ggsave:
+#
+#    anim_save(here("output", "brownian1.gif"))
+
 
 # there are a lot of nice things you can add to an
 # animation. for instance, my personal favourite for
 # having fun is shadow wake, which plots the recent
 # history of each point
 d <- c + shadow_wake(wake_length = .2)
-print(d)
 
 # alternatively you can leave behind a shadow trail
 e <- c + shadow_trail(max_frames = 3)
-print(e)
 
 # or a shadow mark
 f <- c + shadow_mark()
-print(f)
 
 # you can get some remarkable effects
 g <- c + shadow_wake(
@@ -81,4 +81,11 @@ g <- c + shadow_wake(
   falloff = "quintic-in",
   wrap = FALSE
 )
-print(g, detail = 5, type = "cairo")
+
+# When you print g, try it using this command
+#
+#   print(g, detail = 5, type = "cairo")
+#
+# (Mac users: delete the type = "cairo" part, you don't need
+# it. It's there to support antialiasing on Windows)
+
