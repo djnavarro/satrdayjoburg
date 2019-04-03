@@ -20,8 +20,6 @@ a <- ggplot(
   scale_x_discrete(name = "Month") +
   ggtitle("Enterococci by Month")
 
-
-
 # Exercise 1: take a look at the original plot, and
 # then try each of the following themes:
 a + theme_bw()
@@ -44,15 +42,16 @@ a + theme(
   panel.background = element_rect(fill = "grey40")
 )
 
-
-
 # Exercise 2: the plot.background is also a rectangle element and
 # we need to make that darker. Set it to have a fill of "grey40".
 
 #### YOUR-CODE-HERE ####
 
-
-
+# Solution 2:
+a + theme(
+  panel.background = element_rect(fill = "grey40"),
+  plot.background = element_rect(fill = "grey65")
+)
 
 
 # For the rest of this exercise, read along with the
