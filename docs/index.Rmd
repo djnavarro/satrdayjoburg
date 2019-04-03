@@ -1,0 +1,27 @@
+---
+title: '<div class="jumbotron"><h1 class="title toc-ignore display-3" align="center">Data Visualisation in R</h1><p class="lead" align="center">Danielle Navarro</p></div>'
+output:
+  html_document:
+    theme: flatly
+    highlight: textmate
+    css: mystyle.css
+pagetitle: "Data Visualisation"
+---
+
+```{r,echo=FALSE}
+rm(list=objects()) # start with a clean workspace
+```
+
+Participants will need a recent installation of R and RStudio. Package dependencies are listed below, all of which should be available on CRAN.
+
+- `tidyverse`
+- `here`
+- `hexbin`
+- `gganimate`
+- `sf`
+- `usethis`
+
+A link to the course material will appear shortly!
+
+
+
