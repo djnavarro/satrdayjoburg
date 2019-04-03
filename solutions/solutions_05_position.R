@@ -12,17 +12,11 @@ f <- ggplot(
   ) +
   labs(fill = "Season")
 
-
-
-
 # Exercise 1. Verify that these are the same. When two bars
 # occupy the same x co-ordinate, position_stack places one on
 # top of the other.
 f1 <- f + geom_histogram()
 f2 <- f + geom_histogram(position = "stack")
-
-
-
 
 # Exercise 2: position_identity keeps all objects in their
 # position, and they get drawn on top of one another. This is
@@ -31,9 +25,6 @@ f2 <- f + geom_histogram(position = "stack")
 # and I've used transparency. See what this does:
 f3 <- f + geom_histogram(position = "identity", alpha = .5)
 
-
-
-
 # Exercise 3: position_dodge moves them a little bit to the
 # side so that they slot next to each other. It works for
 # bar charts better than for histograms. Adapt the code above
@@ -41,6 +32,8 @@ f3 <- f + geom_histogram(position = "identity", alpha = .5)
 
 #### YOUR-CODE-HERE ####
 
+# Solution 3:
+f4 <- f + geom_histogram(position = "dodge")
 
 
 # Exercise 4: the point geom default is position_identity.
@@ -56,7 +49,9 @@ g1 <- g + geom_point()
 
 #### YOUR-CODE-HERE
 
-
+# Solution 4
+g2 <- g + geom_point(position = "jitter")
+g3 <- g + geom_jitter()
 
 
 # Exercise 5: have a quick look at:
