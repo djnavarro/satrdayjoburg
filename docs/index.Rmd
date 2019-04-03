@@ -20,6 +20,7 @@ Participants will need a recent installation of R and RStudio. Package dependenc
 - `gganimate`
 - `sf`
 - `usethis`
+- `scico`
 
 A link to the course material will appear shortly!
 
