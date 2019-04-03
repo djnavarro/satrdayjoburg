@@ -27,9 +27,11 @@ a <- ggplot(
 
 #### YOUR-CODE-HERE ####
 
-
-
-
+# Solution 1:
+a + scale_fill_continuous(
+  name = "Month",
+  type = "viridis"
+)
 
 # Notice that there are other ways to do the same thing:
 a + scale_fill_viridis_c(
@@ -45,11 +47,12 @@ a + scale_fill_scico(palette = "tokyo")
 # Exercise 2: Have a look at the various scico palettes using
 scico_palette_names()
 
-# Adapt the code above to use one of the other palettes
+# Adapt the code above to use one of the other paletts
 
 #### YOUR-CODE-HERE
 
-
+# Solution 2:
+a + scale_fill_scico(palette = "lajolla")
 
 
 
@@ -58,6 +61,7 @@ scico_palette_names()
 # a continuous variable. I did this by linking the
 # fill aesthetic to the numeric month variable. Now
 # let's do the same thing with the month_name:
+
 
 b <- ggplot(
   data = beaches,
