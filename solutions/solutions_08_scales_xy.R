@@ -34,7 +34,13 @@ a1 <- a +
 
 #### YOUR-CODE-HERE ####
 
+# Solution 1
 
+a2 <- a +
+  scale_y_continuous(
+    name = "Enterococci (cfu/100ml)",
+    limits = c(.1, 1000)
+  )
 
 
 # That looks a bit hard to read. There are several
@@ -46,11 +52,16 @@ a1 <- a +
 
 #### YOUR-CODE-HERE ####
 
+# Solution 2:
 
+a3 <- a +
+  scale_y_continuous(
+    name = "Enterococci (cfu/100ml)",
+    limits = c(.1, 1000),
+    trans = "log10"
+  )
 
-
-
-# Note: The scales package includes a variety of functions that
+# The scales package includes a variety of functions that
 # you can use to specify a transformation. I won't cover
 # those here.
 
@@ -68,8 +79,6 @@ a4 <- a +
 # It has tools for formatting the labels (e.g.,
 # using commas, dollar signs, avoiding scientific
 # notation etc). I won't cover that here though.
-
-
 
 
 # For the next exercise, we start with this plot
@@ -92,7 +101,6 @@ c <- b +
 
 
 # Exercise 3: Compare the violin plots in b and c
-
 
 
 
