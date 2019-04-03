@@ -3,6 +3,14 @@ library(here)
 beaches <- read_csv(here("data","sydneybeaches3.csv"))
 vectors <- read_csv(here("data","vector_field.csv"))
 
+# ggplot2 is designed to be extensible, so that
+# you can write your own geoms, etc. This section
+# discusses it briefly and provides the code from
+# the slides, but there aren't any specific exercises
+# The main goal here is to understand the basics of
+# how ggplot2 can be extended
+
+################# part 1 ################
 
 # A very simple example. First here's
 # the basic set up for a plot showing
@@ -46,6 +54,9 @@ print(c$layers)
 
 # nevertheless, it's still super handy
 
+
+
+################# part 2 ################
 
 # so how would we do the real thing? suppose we wanted a geom that draws
 # arrows:
