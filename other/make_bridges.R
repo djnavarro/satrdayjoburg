@@ -2,7 +2,7 @@ library(tidyverse)
 library(e1071)
 
 ntimes <- 20  # how many time points to run the bridge?
-nseries <- 10 # how many time series to generate?
+nseries <- 8 # how many time series to generate?
 
 # function to generate the brownian bridges
 make_bridges <- function(ntimes, nseries) {
