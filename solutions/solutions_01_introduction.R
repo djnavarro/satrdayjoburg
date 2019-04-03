@@ -17,8 +17,9 @@ print(p)
 
 #### YOUR-CODE-HERE ####
 
-
-
+# Solution 1:
+q <- ggplot(beaches, aes(date, temperature)) + geom_line()
+print(q)
 
 
 # Exercise 2: Next we need to add a title. Create a new plot
@@ -27,7 +28,11 @@ print(p)
 
 #### YOUR-CODE-HERE ####
 
-
+# Solution 2:
+r <- ggplot(beaches, aes(date, temperature)) +
+  geom_line() +
+  labs(title = "Sydney Temperature by Date, 2013-2018")
+print(r)
 
 
 # That's it! This one is short!

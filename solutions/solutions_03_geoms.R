@@ -14,18 +14,17 @@ a <- ggplot(
     y = temperature)
   )
 
-
-
 #  Exercise 2: What does this code do?
 a1 <- a + geom_point()
-
-
 
 # Exercise 3: Create new plots (a2 and a3)
 # using geom_line and geom_step.
 
 #### YOUR-CODE-HERE ####
 
+# Solution 3:
+a2 <- a + geom_line()
+a3 <- a + geom_step()
 
 
 # Exercise 4: what does this code do? See what
@@ -35,15 +34,15 @@ a4 <- a +
   geom_point(colour = "red", size = 5) +
   geom_line(linetype = "dashed", size = 1)
 
-
-
-
 # Exercise 5: what happens when you reverse
 # the order in which the two geoms are added?
 
 #### YOUR-CODE-HERE ####
 
-
+# Solution 5:
+a5 <- a +
+  geom_line(linetype = "dashed", size = 1) +
+  geom_point(colour = "red", size = 5)
 
 
 # Exercise 6: This time I've set up the mappings
@@ -67,7 +66,26 @@ b1 <- b +
 
 #### YOUR-CODE-HERE ####
 
+# Solution 6:
+#
+# For me at least, it's hard to read. There are a few
+# possibilities we might consider:
+#
+# Get rid of the ribbons that show the error bars?
+b2 <- b +
+  geom_smooth(se = FALSE) +
+  geom_point(size = 2)
 
+# We could take this one step further and collapse all
+# the separate regressions into a single one. We can
+# do that by changing the "group" aesthetic, for the
+# geom_smooth() layer:
+
+b3 <- b +
+  geom_smooth(
+    mapping = aes(group = 1),
+    se = FALSE) +
+  geom_point(size = 2)
 
 
 # Exercise 7: The ggplot2 package comes with a very wide
@@ -93,8 +111,6 @@ c2 <- c + geom_hex()
 # with these plots?
 
 
-
-
 # Exercise 8. Now let's consider the situation where the
 # x-aesthetic is discrete:
 d <- ggplot(
@@ -110,13 +126,15 @@ d <- ggplot(
 d1 <- d + geom_boxplot()
 d2 <- d + geom_violin()
 
-
-
 # Exercise 9: Alter the code for the violin plot example, so
 # that the violin plots also have a fill aesthetic that is
 # mapped onto season_name
 
 #### YOUR-CODE-HERE
+
+# Solution 9:
+
+d3 <- d + geom_violin(aes(fill = season_name))
 
 
 
@@ -128,12 +146,16 @@ d4 <- d +
   geom_violin() +
   geom_point()
 
-
-
 # Exercise 11: Use geom_jitter() instead of geom_point()
 # and see if that works better
 
 #### YOUR-CODE-HERE ####
+
+# Solution 11:
+
+d5 <- d +
+  geom_violin() +
+  geom_jitter()
 
 
 

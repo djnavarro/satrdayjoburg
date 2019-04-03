@@ -50,10 +50,16 @@ q <- ggplot(
 
 #### YOUR CODE HERE ####
 
+# Solution 2:
 
-
-
-
+r <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = temperature)
+  ) +
+  geom_line()
 
 
 # Exercise 3. Now try changing which variable is mapped onto
@@ -62,8 +68,29 @@ q <- ggplot(
 
 #### YOUR-CODE-HERE ####
 
+# Solution 3: when a geom uses multiple data points
+# to construct the visual object, it tries to guess
+# which data points belong to the same "group" by
+# assuming that every combination of discrete variables
+# is a a different group.
 
+r1 <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = season_name)
+) +
+geom_line()
 
+r2 <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = season)
+) +
+geom_line()
 
 
 # Exercise 4: Now suppose I want to use season_name for
@@ -74,7 +101,17 @@ q <- ggplot(
 
 #### YOUR-CODE-HERE ####
 
+# Solution 4:
 
+s <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = season_name,
+    group = month_num)
+  ) +
+  geom_line()
 
 # Exercise 5: Suppose I decide that
 # I only want one line with discrete
@@ -85,6 +122,17 @@ q <- ggplot(
 
 #### YOUR-CODE-HERE ####
 
+# Solution 5
+
+t <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = season_name,
+    group = 1)
+  ) +
+  geom_line()
 
 
 # Exercise 6: Look at the legend for
@@ -102,6 +150,19 @@ q <- ggplot(
 #### YOUR-CODE-HERE ####
 
 
+# Solution 6:
+
+t <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = reorder(season_name, season),
+    group = 1)
+  ) +
+  geom_line()
+
+
 
 # Exercise 7: Note that the legend label is
 # now very ugly. This can be fixed using the
@@ -114,4 +175,22 @@ q <- ggplot(
 # the legend?
 
 #### YOUR-CODE-HERE ####
+
+
+# Solution 7:
+
+u <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = reorder(season_name, season),
+    group = 1)
+  ) +
+  geom_line() +
+  labs(
+    x = "Date",
+    y = "Temperature",
+    colour = "Season"
+  )
 
