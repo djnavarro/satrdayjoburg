@@ -1,26 +1,31 @@
 library(tidyverse)
 library(here)
-library(sf)
 
-beaches_all <- read_csv(here("data","sydneybeaches2.csv"))
-sydney_map <- read_sf(here("data","sydney.shp"))
+two_beaches <- read_csv(here("data","sydneybeaches2.csv")) %>%
+  filter(site %in% c("Bondi Beach", "Malabar Beach")) %>%
+  select(site, date, enterococci) %>%
+  spread(key = site, value = enterococci) %>%
+  janitor::clean_names()
 
-map1 <- ggplot(data = sydney_map) +
-  geom_sf(
-    mapping = aes(
-      geometry = geometry,
-      fill = ar_2016
-    ),
-    colour = "white",
-    show.legend = FALSE
-  )
+# base plot
+b <- ggplot(
+  data = two_beaches,
+  mapping = aes(bondi_beach, malabar_beach)
+) +
+  scale_x_continuous(trans = "log10") +
+  scale_y_continuous(trans = "log10") +
+  geom_point() +
+  geom_abline(slope=1, intercept=0)
 
-map2 <- ggplot(
-  data = beaches_all,
-  mapping = aes(
-    x = lat,
-    y = long,
-    colour  = enterococci)
-) + geom_jitter() +
-  coord_equal(ratio = 1)
+# same as the base plot
+b + coord_cartesian()
 
+# coordinates on the same scale
+b + coord_equal()
+
+# coordinates with the same limits
+# but not the same scale
+b + coord_cartesian(xlim = c(1,1000), ylim=c(1,1000))
+
+# both
+b + coord_equal(xlim = c(1,1000), ylim=c(1,1000))
