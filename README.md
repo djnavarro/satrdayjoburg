@@ -6,7 +6,10 @@ Content for my data visualisation workshop for satRday Johannesburg.
 - tidyverse (mostly ggplot2, dplyr, readr, tidyr)
 - here
 - hexbin
-- gganimate (and dependencies)
+- gganimate
+- sf, absmapdata
+- usethis
+- 
 
 
 
