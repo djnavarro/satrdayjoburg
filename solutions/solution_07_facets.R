@@ -6,6 +6,10 @@ a <- ggplot(beaches, aes(date, temperature)) + geom_point()
 
 ### YOUR-CODE-HERE ###
 
+# Solution 1:
+b <- ggplot(beaches, aes(date, temperature)) +
+  geom_point() +
+  facet_wrap(vars(month_name))
 
 
 
@@ -15,7 +19,10 @@ a <- ggplot(beaches, aes(date, temperature)) + geom_point()
 
 ### YOUR-CODE-HERE ###
 
-
+# Solution 2:
+c <- ggplot(beaches, aes(date, temperature)) +
+  geom_point() +
+  facet_wrap(vars(reorder(month_name,month)))
 
 
 # Exercise 3: What does the facetting do to your
@@ -33,6 +40,13 @@ a <- ggplot(beaches, aes(date, temperature)) + geom_point()
 
 ### YOUR-CODE-HERE ###
 
+# Solution 4:
+d <- ggplot(beaches, aes(date, temperature)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(vars(reorder(month_name,month)))
+print(d)
+
 
 
 
@@ -43,6 +57,15 @@ a <- ggplot(beaches, aes(date, temperature)) + geom_point()
 # the salience of trends?
 
 ### YOUR-CODE-HERE ###
+
+# Solution 5:
+e <- ggplot(beaches, aes(date, temperature)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  facet_wrap(
+    facets = vars(reorder(month_name,month)),
+    nrow = 2)
+print(e)
 
 
 
@@ -58,6 +81,14 @@ print(f)
 ### YOUR-CODE-HERE ###
 
 
+# Solution 6:
+g <- ggplot(beaches, aes(x = temperature, fill = season_name)) +
+  geom_histogram() +
+  facet_grid(
+    rows = vars(season_name),
+    cols = vars(year)
+  )
+print(g)
 
 
 
@@ -72,5 +103,12 @@ h <- ggplot(beaches, aes(date, temperature)) +
 
 ### YOUR-CODE-HERE ###
 
+# Solution 7:
+i <- ggplot(beaches, aes(date, temperature)) +
+  geom_point() +
+  facet_wrap(
+    facets = vars(reorder(month_name,month)),
+    strip.position = "bottom"
+  )
 
 
