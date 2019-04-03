@@ -29,3 +29,25 @@ f3 <- f + geom_histogram(position = "identity", alpha = .5)
 # bar charts better than for hisograms.
 f4 <- f + geom_histogram(position = "dodge")
 
+# other exercises.
+g <- ggplot(
+  data = beaches,
+  mapping = aes(x = season_name, y = temperature)
+)
+
+# the point geom uses position_identity by default
+# change this to use position_jitter; compare the
+# result to what happens if you use geom_jitter
+# instead of geom_point
+g1 <- g + geom_point()
+
+g2 <- g + geom_point(position = "jitter")
+g3 <- g + geom_jitter()
+
+# have a quick look at:
+# - position_fill
+# - position_nudge
+#
+# when might you use these?
+
+
