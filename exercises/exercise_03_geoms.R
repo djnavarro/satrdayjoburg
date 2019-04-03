@@ -1,5 +1,6 @@
 library(tidyverse)
 library(here)
+library(hexbin)
 beaches <- read_csv(here::here("data","sydneybeaches3.csv"))
 
 # Exercise 1: I have set up the mappings and labels
@@ -83,8 +84,9 @@ c <- ggplot(
   )
 )
 
+
 c1 <- c + geom_bin2d()
-# ompare to hexbin - but we need the package!!
+c2 <- c + geom_hex()
 
 
 # Here is another one:
@@ -116,6 +118,8 @@ d5 <- d +
   geom_point(stat = "summary")
 
 
+# Hopefully this illustrates some of the variety of
+# geoms that are available in the ggplot2 package!
 
 
 
