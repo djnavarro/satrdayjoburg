@@ -1335,57 +1335,30 @@ class: split-50 bg-main1
 Let's create a plot with no layers!
 
 ```r
-pic &lt;- ggplot(
+p &lt;- ggplot(
   data = beaches,
-  mapping = aes(x = temperature) 
-) + 
+  mapping = aes(x = temperature)) + 
 facet_wrap(vars(season_name)) + 
-theme_bw() +
 labs( 
-  title = "Sydney temperature by season", 
-  subtitle = "Data from 2013 to 2018", 
-  x = "Temperature (Celsius)", 
-  y = "" 
-) 
+  title = "Sydney temperature, 2013-2018", 
+  x = "Temperature (Celsius)", y = "") 
+
+print(p)
 ```
+
+- The partial plot is stored
+- Can add to it as needed
+- Useful for programming
 
 ]]]
 ]]
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-
-
-]]
-]]
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: split-40 bg-main1
-
-.column.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-Layers can compute things!
-
-```r
-pic 
-```
-
-
-]]]
-]]
-
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-![](slides_files/figure-html/no_histogram-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 
 ]]
 ]]
-
 
 
 
@@ -1401,10 +1374,7 @@ class: split-40 bg-main1
 Layers can compute things!
 
 ```r
-*pic_hist &lt;- pic +
-* geom_histogram()
-
-pic_hist
+p + geom_histogram() 
 ```
 
 - histograms are not "in the data"
@@ -1434,13 +1404,9 @@ class: split-40 bg-main1
 Layers can compute things!
 
 ```r
-pic_hist &lt;- pic + 
-  geom_histogram() 
-
-*pic_dens &lt;- pic +
-* geom_density()
-
-pic_dens
+p1 &lt;- p + geom_histogram() 
+p2 &lt;- p + geom_density() 
+p2
 ```
 
 
@@ -1469,7 +1435,7 @@ class: split-50 bg-main1
 The layer information... density
 
 ```r
-pic_dens$layers
+p2$layers
 ```
 
 ```
@@ -1480,20 +1446,20 @@ pic_dens$layers
 ```
 
 Each layer specifies:
-- A geom: the graphical object to be drawn
-- A stat: what "statistic" it is applied to
-- A position: how it is placed
+- A .orange[geom]: the graphical object to be drawn
+- A .orange[stat]: what "statistic" it is applied to
+- A .orange[position]: how it is placed
 
 ]]]
 ]]
 --
 
-.column.bg-main3[.content.vtop.center[
+.column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
 The layer information... histogram
 
 ```r
-pic_hist$layers
+p1$layers
 ```
 
 ```
@@ -1505,7 +1471,6 @@ pic_hist$layers
 
 &lt;br&gt;
 - There is hidden complexity!
-- It's a bit weird
 - Let's dig into this...
 
 
@@ -1524,7 +1489,7 @@ class: split-40 bg-main1
 Our histogram...
 
 ```r
-pic + geom_histogram(
+p + geom_histogram(
   stat = "bin",
   position = "stack"
 ) 
@@ -1536,7 +1501,7 @@ pic + geom_histogram(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
 
 ]]
 ]]
@@ -1551,23 +1516,26 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-The exact same histogram!
+Our histogram...
 
 ```r
-pic + stat_bin(
+p + stat_bin(
   geom = "bar",
   position = "stack"
 ) 
 ```
-- How would we check?
-- Is it exactly the same?
+
+- It is the same?!
+- It is, but don't do this!
+- Use geom to make layers
+- Use stat to change computation
 ]]]
 ]]
 
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
 
 
 ]]
@@ -1583,13 +1551,10 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Changing the default geom?
+Reverse engineering...
 
 ```r
-pic + stat_bin(
-  geom = "point",
-  position = "stack"
-) 
+p + geom_histogram()
 ```
 
 ]]]
@@ -1598,7 +1563,7 @@ pic + stat_bin(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1612,11 +1577,11 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Another way to do the same thing
+Reverse engineering...
 
 ```r
-pic + geom_point(
-  stat = "bin",
+p + geom_bar(
+  stat = "bin", 
   position = "stack"
 ) 
 ```
@@ -1627,7 +1592,39 @@ pic + geom_point(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Making a "dot histogram"
+
+```r
+p + geom_point(
+  stat = "bin", 
+  position = "stack" 
+) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1643,9 +1640,9 @@ class: split-50 bg-main1
 .pull.left[.pad1[.font2[
 
 &lt;br&gt;
-## [But whhhyyyyy??????](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
+## [Why are you like this?](https:/cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
 
-"Next we write a layer function. Unfortunately, due to an early design mistake I called these either stat\_() or geom\_(). A better decision would have been to call them layer\_() functions: that’s a more accurate description because every layer involves a stat and a geom."
+"Unfortunately, due to an early design mistake I called these either stat\_() or geom\_(). A better decision would have been to call them layer\_() functions: that’s a more accurate description because every layer involves a stat and a geom."
 
 
 ]]]
@@ -1874,7 +1871,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1911,7 +1908,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-69-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1951,7 +1948,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1993,7 +1990,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-74-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2034,7 +2031,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-75-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2072,7 +2069,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-77-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2112,7 +2109,7 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-79-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-80-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2181,7 +2178,7 @@ geom_dothistogram &lt;- function(
   return(layer)
 }
 
-*pic + geom_dothistogram(size = 3)
+*p + geom_dothistogram(size = 3)
 ```
 
 ]]]
@@ -2190,7 +2187,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-81-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-82-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2227,7 +2224,7 @@ geom_dothistogram &lt;- function(
   return(layer)
 }
 
-*pic + geom_dothistogram(size = 3)
+*p + geom_dothistogram(size = 3)
 ```
 
 ]]]
@@ -2236,7 +2233,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-83-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-84-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2384,7 +2381,7 @@ ggplot(
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 
-![](slides_files/figure-html/unnamed-chunk-88-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-89-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
