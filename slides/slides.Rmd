@@ -803,24 +803,85 @@ labs( #<<
 
 
 
+
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: bg-main1
+class: split-50 bg-main1
 
-.content.vtop.center[
+.column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Ingredients of this plot/cake 
+All the ingredients are needed!
+
 - Data
 - Aesthetics
 - Layers
 - Facets
 - Theme
-- Labels
 - (Coordinates)
 - (Scales)
-]]]
-]
 
+]]]
+]]
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+So when I type this...
+```{r condensed, eval=FALSE}
+ggplot(
+  beaches, 
+  aes(temperature, rainfall)
+) + 
+geom_point()
+```
+
+]]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+All the ingredients are needed!
+
+- Data
+- Aesthetics
+- Layers
+- Facets
+- Theme
+- (Coordinates)
+- (Scales)
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+What I get is this...
+```{r expanded, eval=FALSE}
+ggplot(
+  data = beaches, 
+  mapping = aes(
+    x = temperature, y = rainfall)) + 
+layer(
+  geom = "point",
+  stat = "identity",
+  position = "identity") + 
+facet_null() +
+theme_grey() + 
+coord_cartesian() + 
+scale_x_continuous() + 
+scale_y_continuous()
+```
+
+]]]
+]]
 
 
 
