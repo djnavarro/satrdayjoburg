@@ -2048,8 +2048,6 @@ f + geom_density(
 
 
 
-
-
 <!-- *********** NEW SLIDE ************** -->
 ---
 class: split-40 bg-main1
@@ -2115,6 +2113,203 @@ f + geom_density(
 ```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
 f + geom_density(
   position = "fill",
+  alpha = .5
+)
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+This is not so helpful!
+```{r, eval=FALSE, message = FALSE}
+g <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = year,
+    y = temperature)
+  ) 
+
+g + geom_point()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+g <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = year,
+    y = temperature)
+  ) 
+
+g + geom_point()
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+```{r, eval=FALSE, message = FALSE}
+g + geom_point(
+  position = "identity",
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[identity]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+g + geom_point(
+  position = "identity",
+  size = 3,
+  alpha = .5
+)
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+```{r, eval=FALSE, message = FALSE}
+g + geom_point(
+  position = "jitter",
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[jitter]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+g + geom_point(
+  position = "jitter",
+  size = 3,
+  alpha = .5
+)
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+```{r, eval=FALSE, message = FALSE}
+g + geom_point(
+  position = position_jitter( #<<
+    width = .1, height = 0), #<<
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[jitter]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+g + geom_point(
+  position = position_jitter(
+    width = .1, height = 0
+  ),
+  size = 3,
+  alpha = .5
+)
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+In fact...
+```{r, eval=FALSE, message = FALSE}
+g + geom_jitter( #<<
+  width = .1, #<<
+  height = 0, #<<
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[jitter]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+g + geom_jitter(
+  width = .1, 
+  height = 0,
+  size = 3,
   alpha = .5
 )
 ```
