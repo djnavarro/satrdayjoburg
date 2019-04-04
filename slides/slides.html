@@ -2297,6 +2297,39 @@ r + scale_y_continuous(
 
 
 
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Even better!
+
+```r
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+  ) + 
+  scale_x_continuous(
+    name = "Temperature",
+    labels = scales::unit_format(
+      suffix = "°C")
+  )
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-102-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
@@ -2316,6 +2349,107 @@ class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
 .font4[Scales (colour/fill)]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Now where were we...
+
+```r
+b
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-104-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Colour/fill aesthetics have scales
+
+```r
+b + scale_colour_discrete(
+  name = "Season"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-106-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Many packages provide scales/palettes
+
+```r
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "lajolla"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-108-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Many packages provide scales/palettes
+
+```r
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "bilbao"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-110-1.png)&lt;!-- --&gt;
+]]
 ]]
 
 
@@ -2422,7 +2556,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-104-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-114-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2459,7 +2593,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-106-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-116-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2499,7 +2633,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-108-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-118-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2541,7 +2675,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-110-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-120-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2582,7 +2716,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-112-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-122-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2620,7 +2754,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-114-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-124-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2660,9 +2794,50 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-116-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-126-1.png)&lt;!-- --&gt;
 ]]
 ]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple bar plot, ruined
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season_name,
+    fill = season_name
+  )
+) + 
+geom_col() + 
+*coord_polar(theta = "y")
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-128-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
 
 
 
@@ -2687,6 +2862,328 @@ class: bg-main1 center middle hide-slide-number
 .reveal-text.bg-main2[.pad1[
 .font4[Themes]
 ]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Here's one from earlier...
+
+```r
+th &lt;- b + 
+  scico::scale_colour_scico_d(
+    name = "Season",
+    palette = "lajolla")
+
+th
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-130-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The default theme
+
+```r
+th + theme_grey()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-132-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+
+```r
+th + theme_dark()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-134-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+
+```r
+th + theme_bw()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-136-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+
+```r
+th + theme_void()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-138-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"
+  ) 
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-140-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"), 
+  panel.background = element_rect(
+    fill = "#562457",
+    colour = "#562457")
+)
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-142-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- u + theme(
+ legend.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-144-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- u + theme(
+  text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-146-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- u + theme(
+  axis.text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-148-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.pull.left[.pad1[.font2[
+Kunoichi theme (incomplete)
+
+```r
+theme_kunoichi &lt;- function(...) {
+  theme_grey(...) %+replace%
+  theme( 
+    plot.background = element_rect(fill = "#BA68C8", colour = "#BA68C8"),
+    panel.background = element_rect(fill = "#562457", colour = "#562457"),
+    legend.background = element_rect(fill = "#BA68C8", colour = "#BA68C8"),
+    plot.title = element_text(colour = "white"),
+    plot.subtitle = element_text(colour = "white"),
+    axis.title = element_text(colour = "white"),
+    axis.text = element_text(colour = "white"),
+    legend.title = element_text(colour = "white"),
+    legend.text = element_text(colour = "white")
+  )
+} 
+```
+
+]]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+And so...
+
+```r
+th + theme_kunoichi()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-151-1.png)&lt;!-- --&gt;
+]]
+]]
+
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
@@ -2738,7 +3235,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-118-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-153-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2784,7 +3281,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-120-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-155-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2932,7 +3429,7 @@ ggplot(
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 
-![](slides_files/figure-html/unnamed-chunk-125-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-160-1.png)&lt;!-- --&gt;
 ]]
 ]]
 

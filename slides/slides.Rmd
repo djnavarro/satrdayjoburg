@@ -2684,6 +2684,51 @@ r + scale_y_continuous(
 
 
 
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Even better!
+```{r, eval=FALSE, message = FALSE}
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+  ) + 
+  scale_x_continuous(
+    name = "Temperature",
+    labels = scales::unit_format(
+      suffix = "°C")
+  )
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+b <- r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+  ) + 
+  scale_x_continuous(
+    name = "Temperature",
+    labels = scales::unit_format(
+      suffix = "°C")
+  )
+b
+```
+]]
+]]
+
+
 <!-- *********** NEW SLIDE ************** -->
 ---
 
@@ -2703,6 +2748,119 @@ class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
 .font4[Scales (colour/fill)]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Now where were we...
+```{r, eval=FALSE, message = FALSE}
+b
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+b
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Colour/fill aesthetics have scales
+```{r, eval=FALSE, message = FALSE}
+b + scale_colour_discrete(
+  name = "Season"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+b + scale_colour_discrete(
+  name = "Season"
+)
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Many packages provide scales/palettes
+```{r, eval=FALSE, message = FALSE}
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "lajolla"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "lajolla"
+)
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Many packages provide scales/palettes
+```{r, eval=FALSE, message = FALSE}
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "bilbao"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "bilbao"
+)
+```
+]]
 ]]
 
 
@@ -3140,6 +3298,58 @@ coord_polar() #<<
 
 
 
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple bar plot, ruined
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season_name,
+    fill = season_name
+  )
+) + 
+geom_col() + 
+coord_polar(theta = "y") #<<
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season_name,
+    fill = season_name    
+  )
+) + 
+geom_col() + 
+coord_polar(theta = "y") #<<
+```
+]]
+]]
+
+
+
+
+
+
+
 <!-- *********** NEW SLIDE ************** -->
 ---
 
@@ -3160,6 +3370,370 @@ class: bg-main1 center middle hide-slide-number
 .reveal-text.bg-main2[.pad1[
 .font4[Themes]
 ]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Here's one from earlier...
+```{r, eval=FALSE, message = FALSE}
+th <- b + 
+  scico::scale_colour_scico_d(
+    name = "Season",
+    palette = "lajolla")
+
+th
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+th <- b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "lajolla"
+)
+
+th
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The default theme
+```{r, eval=FALSE, message = FALSE}
+th + theme_grey()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+th + theme_grey()
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+```{r, eval=FALSE, message = FALSE}
+th + theme_dark()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+th + theme_dark()
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+```{r, eval=FALSE, message = FALSE}
+th + theme_bw()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+th + theme_bw()
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+```{r, eval=FALSE, message = FALSE}
+th + theme_void()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+th + theme_void()
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+```{r, eval=FALSE, message = FALSE}
+th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"
+  ) 
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"
+  ) 
+)
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+```{r, eval=FALSE, message = FALSE}
+u <- th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"), 
+  panel.background = element_rect(
+    fill = "#562457",
+    colour = "#562457")
+)
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+u <- th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"),
+  panel.background = element_rect(
+    fill = "#562457",
+    colour = "#562457")
+)
+u
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+```{r, eval=FALSE, message = FALSE}
+u <- u + theme(
+ legend.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+u <- u + theme(
+  legend.background  = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"))
+u
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+```{r, eval=FALSE, message = FALSE}
+u <- u + theme(
+  text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+u <- u + theme(
+  text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+```{r, eval=FALSE, message = FALSE}
+u <- u + theme(
+  axis.text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+u <- u + theme(
+  axis.text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.pull.left[.pad1[.font2[
+Kunoichi theme (incomplete)
+```{r, eval=TRUE, message = FALSE}
+theme_kunoichi <- function(...) {
+  theme_grey(...) %+replace%
+  theme( 
+    plot.background = element_rect(fill = "#BA68C8", colour = "#BA68C8"),
+    panel.background = element_rect(fill = "#562457", colour = "#562457"),
+    legend.background = element_rect(fill = "#BA68C8", colour = "#BA68C8"),
+    plot.title = element_text(colour = "white"),
+    plot.subtitle = element_text(colour = "white"),
+    axis.title = element_text(colour = "white"),
+    axis.text = element_text(colour = "white"),
+    legend.title = element_text(colour = "white"),
+    legend.text = element_text(colour = "white")
+  )
+} 
+```
+
+]]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+And so...
+```{r, eval=FALSE, message = FALSE}
+th + theme_kunoichi()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+th + theme_kunoichi()
+```
+]]
+]]
+
 
 
 <!-- *********** NEW SLIDE ************** -->
