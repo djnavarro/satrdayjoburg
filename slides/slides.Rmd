@@ -1971,6 +1971,159 @@ class: bg-main1 center middle hide-slide-number
 
 
 
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+This is not so helpful!
+```{r, eval=FALSE, message = FALSE}
+f <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    fill = season_name)
+  ) 
+
+f + geom_density()
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+f <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    fill = season_name)
+  ) 
+
+f + geom_density()
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+```{r, eval=FALSE, message = FALSE}
+f + geom_density(
+  position = "identity",
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[identity]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+f + geom_density(
+  position = "identity",
+  alpha = .5
+)
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+```{r, eval=FALSE, message = FALSE}
+f + geom_density(
+  position = "stack", #<<
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[stack]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+f + geom_density(
+  position = "stack",
+  alpha = .5
+)
+```
+]]
+]]
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+```{r, eval=FALSE, message = FALSE}
+f + geom_density(
+  position = "fill", #<<
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[fill]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+f + geom_density(
+  position = "fill",
+  alpha = .5
+)
+```
+]]
+]]
+
+
+
+
 <!-- *********** NEW SLIDE ************** -->
 ---
 

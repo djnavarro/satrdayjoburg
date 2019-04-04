@@ -1681,6 +1681,139 @@ class: bg-main1 center middle hide-slide-number
 
 
 
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+This is not so helpful!
+
+```r
+f &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    fill = season_name)
+  ) 
+
+f + geom_density()
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+f + geom_density(
+  position = "identity",
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[identity]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+f + geom_density(
+* position = "stack",
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[stack]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+f + geom_density(
+* position = "fill",
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[fill]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
@@ -1871,7 +2004,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1908,7 +2041,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1948,7 +2081,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-80-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1990,7 +2123,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-74-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-82-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2031,7 +2164,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-84-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2069,7 +2202,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-86-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2109,7 +2242,7 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-80-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-88-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2187,7 +2320,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-82-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-90-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2233,7 +2366,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-84-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-92-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2381,7 +2514,7 @@ ggplot(
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 
-![](slides_files/figure-html/unnamed-chunk-89-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-97-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
