@@ -2207,6 +2207,96 @@ class: bg-main1 center middle hide-slide-number
 ]]
 
 
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A badly scaled plot...
+
+```r
+r &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    y = enterococci,
+    colour = season_name,
+    group = 1)) +
+  geom_point()
+
+print(r)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-96-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Better!
+
+```r
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-98-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Better!
+
+```r
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-100-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
@@ -2332,7 +2422,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-98-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-104-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2369,7 +2459,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-100-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-106-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2409,7 +2499,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-102-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-108-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2451,7 +2541,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-104-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-110-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2492,7 +2582,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-106-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-112-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2530,7 +2620,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-108-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-114-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2570,7 +2660,7 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-110-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-116-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2648,7 +2738,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-112-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-118-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2694,7 +2784,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-114-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-120-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2842,7 +2932,7 @@ ggplot(
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 
-![](slides_files/figure-html/unnamed-chunk-119-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-125-1.png)&lt;!-- --&gt;
 ]]
 ]]
 

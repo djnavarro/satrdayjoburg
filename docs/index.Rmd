@@ -29,6 +29,7 @@ library(gganimate)
 library(sf)
 library(usethis)
 library(scico)
+library(scales)
 ```
 
 ## Course materials

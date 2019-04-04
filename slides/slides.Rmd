@@ -25,6 +25,7 @@ library(gganimate)
 library(sf)
 library(usethis)
 library(scico)
+library(scales)
 beaches <- read_csv(here("data","sydneybeaches3.csv"))
 ```
 
@@ -2570,6 +2571,117 @@ class: bg-main1 center middle hide-slide-number
 .reveal-text.bg-main2[.pad1[
 .font4[Scales (location)]
 ]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A badly scaled plot...
+```{r, eval=FALSE, message = FALSE}
+r <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    y = enterococci,
+    colour = season_name,
+    group = 1)) +
+  geom_point()
+
+print(r)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+r <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    y = enterococci,
+    colour = season_name,
+    group = 1)) +
+  geom_point(
+    size = 4, alpha = .8)
+
+print(r)
+```
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Better!
+```{r, eval=FALSE, message = FALSE}
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10"
+)
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Better!
+```{r, eval=FALSE, message = FALSE}
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+)
+```
+]]
+]]
+
 
 
 <!-- *********** NEW SLIDE ************** -->
