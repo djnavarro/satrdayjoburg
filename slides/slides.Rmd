@@ -2399,6 +2399,7 @@ class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
 .font4[Stats]
+(missing!!)
 ]]
 
 
@@ -2410,6 +2411,7 @@ class: white bg-black center middle hide-slide-number
 .pad1[
 .font4[
 Exercise 06<br>
+(missing!!)
 ]]
 
 
@@ -3853,70 +3855,6 @@ geom_dothistogram <- function(
   layer <- stat_bin(geom = geom, ...)
   return(layer)
   
-}
-
-p + geom_dothistogram(size = 3) #<<
-```
-]]
-]]
-
-
-
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-class: split-50 bg-main1
-
-.column.bg-main1[.content.vtop.center[
-.pull.left[.pad1[.font2[
-Overriding defaults
-
-```{r, eval=FALSE, message = FALSE}
-geom_dothistogram <- function(
-  mapping = NULL, data = NULL, 
-  position = "stack", ..., 
-  binwidth = NULL, bins = NULL, 
-  na.rm = FALSE, show.legend = NA, 
-  inherit.aes = TRUE
-){
-  
-  layer <- stat_bin(
-    mapping = mapping, data = data, 
-    geom = "point", position = position,
-    ..., binwidth = binwidth, 
-    bins = bins, na.rm = na.rm, 
-    show.legend = show.legend,
-    inherit.aes = inherit.aes
-  )
-  return(layer)
-}
-
-p + geom_dothistogram(size = 3) #<<
-```
-
-]]]
-]]
-
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
-geom_dothistogram <- function(
-  mapping = NULL, data = NULL, position = "stack", 
-  ..., binwidth = NULL, bins = NULL, na.rm = FALSE, 
-  show.legend = NA, inherit.aes = TRUE
-){
-  
-  layer <- stat_bin(
-    mapping = mapping, data = data, 
-    geom = "point", position = position,
-    ..., binwidth = binwidth, bins = bins,
-    na.rm = na.rm, show.legend = show.legend,
-    inherit.aes = inherit.aes
-  )
-  
-  return(layer)
 }
 
 p + geom_dothistogram(size = 3) #<<
