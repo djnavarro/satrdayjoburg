@@ -1828,8 +1828,6 @@ Exercise 11<br>
 ]]
 
 
-
-
 <!-- *********** NEW SLIDE ************** -->
 ---
 
@@ -1842,35 +1840,76 @@ class: bg-main1 center middle hide-slide-number
 
 
 
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Overriding defaults
+
+```{r, eval=FALSE, message = FALSE}
+geom_dothistogram <- function(
+  geom = "point", ...){
+  
+  layer <- stat_bin(geom = geom, ...)
+  return(layer)
+}
+
+pic + geom_dothistogram(size = 3) #<<
+
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+geom_dothistogram <- function(
+  geom = "point", ...
+  ) {
+  
+  layer <- stat_bin(geom = geom, ...)
+  return(layer)
+  
+}
+
+pic + geom_dothistogram(size = 3) #<<
+```
+]]
+]]
+
+
+
 
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-60 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Geoms of (in)convenience?
-
-- override defaults is easy... 
-- ... but not always wise
-- Exercises will have a better example
+Overriding defaults
 
 ```{r, eval=FALSE, message = FALSE}
 geom_dothistogram <- function(
-  mapping = NULL, data = NULL, position = "stack", 
-  ..., binwidth = NULL, bins = NULL, na.rm = FALSE, 
-  show.legend = NA, inherit.aes = TRUE
+  mapping = NULL, data = NULL, 
+  position = "stack", ..., 
+  binwidth = NULL, bins = NULL, 
+  na.rm = FALSE, show.legend = NA, 
+  inherit.aes = TRUE
 ){
   
   layer <- stat_bin(
     mapping = mapping, data = data, 
     geom = "point", position = position,
-    ..., binwidth = binwidth, bins = bins,
-    na.rm = na.rm, show.legend = show.legend,
+    ..., binwidth = binwidth, 
+    bins = bins, na.rm = na.rm, 
+    show.legend = show.legend,
     inherit.aes = inherit.aes
   )
-  
   return(layer)
 }
 
@@ -1905,6 +1944,170 @@ pic + geom_dothistogram(size = 3) #<<
 ```
 ]]
 ]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Entirely new geoms rely on .orange[grid] graphics...
+
+```{r, eval=TRUE, message = FALSE}
+my_arrow <- function(data, panel_params, coord) {
+  coords <- coord$transform(data, panel_params)
+  trans <- function(coords, fun) {
+    coords$length * coords$size * fun(2 * pi * coords$direction / 360)
+  }
+
+  grid::polylineGrob(
+    x = c(coords$x, coords$x + trans(coords, cos)),
+    y = c(coords$y, coords$y + trans(coords, sin)),
+    id = c(1:length(coords$x), 1:length(coords$x)),
+    arrow = arrow(
+      angle = 30,
+      length = unit(coords$size * coords$length/2, "native")),
+    default.units = "native",
+    gp = grid::gpar(col = coords$colour, lwd = coords$linewidth)
+  )
+}
+```
+
+]]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Then we create a new .orange[ggproto] object...
+
+```{r, eval=TRUE, message = FALSE}
+GeomVector <- ggproto(
+  "GeomVector", Geom,
+  required_aes = c("x", "y", 
+                   "direction", "length"),
+  default_aes = aes(
+    colour = "black", fill = NA, size = .025,
+    linetype = 1, alpha = 1, linewidth = 1
+  ),
+  draw_key = draw_key_point,
+  draw_panel = my_arrow
+)
+
+```
+
+]]]
+]]
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+What are you???
+
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Now we define the layer function...
+
+```{r, eval=TRUE, message = FALSE}
+geom_vector <- function(
+  mapping = NULL, data = NULL,
+  stat = "identity", position = "identity",
+  na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...) {
+
+  ggplot2::layer(
+    geom = GeomVector, mapping = mapping,
+    data = data, stat = stat,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+
+```
+
+]]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Now we use it!
+
+```{r, eval=FALSE, message = FALSE}
+vectors <- read_csv(
+  here("data","vector_field.csv"))
+
+ggplot(
+  data = vectors,
+  mapping = aes(
+    x = xval,
+    y = yval,
+    direction = dir,
+    length = len,
+    colour = cosx)
+  ) +
+  geom_vector(linewidth = 2)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+```{r, eval=TRUE, echo=FALSE, cache=TRUE, warning=FALSE, message = FALSE}
+vectors <- read_csv(
+  here("data","vector_field.csv"))
+
+ggplot(
+  data = vectors,
+  mapping = aes(
+    x = xval,
+    y = yval,
+    direction = dir,
+    length = len,
+    colour = cosx)
+  ) +
+  geom_vector(linewidth = 2)
+```
+]]
+]]
+
+
+
+
 
 
 

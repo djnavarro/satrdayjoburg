@@ -61,41 +61,38 @@ print(c$layers)
 # so how would we do the real thing? suppose we wanted a geom that draws
 # arrows:
 
+my_arrow <- function(data, panel_params, coord) {
+  coords <- coord$transform(data, panel_params)
+  trans <- function(coords, fun) {
+    coords$length * coords$size * fun(2 * pi * coords$direction / 360)
+  }
+
+  grid::polylineGrob(
+    x = c(coords$x, coords$x + trans(coords, cos)),
+    y = c(coords$y, coords$y + trans(coords, sin)),
+    id = c(1:length(coords$x), 1:length(coords$x)),
+    arrow = arrow(
+      angle = 30,
+      length = unit(coords$size * coords$length/2, "native")),
+    default.units = "native",
+    gp = grid::gpar(col = coords$colour, lwd = coords$linewidth)
+  )
+}
+
 GeomVector <- ggproto(
   "GeomVector", Geom,
-
   required_aes = c("x", "y", "direction", "length"),
-
   default_aes = aes(
     colour = "black", fill = NA, size = .025,
     linetype = 1, alpha = 1, linewidth = 1
   ),
-
   draw_key = draw_key_point,
-
-  draw_panel = function(data, panel_params, coord) {
-    coords <- coord$transform(data, panel_params)
-    #maxlen <- .025
-    headang <- 30
-    grid::polylineGrob(
-      x = c(coords$x, coords$x + coords$length * coords$size * cos(2*pi*coords$direction/360)),
-      y = c(coords$y, coords$y + coords$length * coords$size * sin(2*pi*coords$direction/360)),
-      id = c(1:length(coords$x), 1:length(coords$x)),
-      arrow = arrow(
-        angle = headang,
-        length = unit(coords$size * coords$length/2, "native")),
-      default.units = "native",
-      gp = grid::gpar(
-        col = coords$colour,
-        lwd = coords$linewidth)
-    )
-  }
+  draw_panel = my_arrow
 )
 
 
 geom_vector <- function(
-  mapping = NULL,
-  data = NULL,
+  mapping = NULL, data = NULL,
   stat = "identity",
   position = "identity",
   na.rm = FALSE,
