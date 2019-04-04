@@ -34,14 +34,16 @@ library(scales)
 
 ## Course materials
 
-The course materials are can be downloaded as a zip file [here](./datavis.zip), or alternatively to download them directly within R and automatically open the correct project file:
+The almost-finished course materials can be downloaded as a zip file [here](./datavis.zip), or alternatively to download them directly within R and automatically open the correct project file:
 
 ```{r, eval=FALSE}
 # install.packages(usethis) 
 usethis::use_course("https://djnavarro.github.io/satrdayjoburg/datavis.zip")
 ```
 
-The current version of the course is not *quite* complete (my slides are missing and one set of exercises isn't done yet) but it should cover most of the workshop content.
+## Slides
+
+The (not quite complete) slides for the workshop are [here](./slides/).
 
 
 
