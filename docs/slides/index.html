@@ -1,0 +1,4012 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data Visualisation in R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="  Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>" />
+    <link href="libs/remark-css/kunoichi.css" rel="stylesheet" />
+    <link href="libs/remark-css/ninjutsu.css" rel="stylesheet" />
+    <link href="libs/font-awesome-animation/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="libs/fontawesome/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="assets\ninpo.css" type="text/css" />
+    <link rel="stylesheet" href="assets\danielle.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data Visualisation in R
+## From ggplot2 to gganimate
+### <br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>
+### <a href='https://djnavarro.github.io/satrdayjoburg/'>https://djnavarro.github.io/satrdayjoburg/</a><br><br>5 April 2019
+
+---
+
+
+
+
+class: split-two bg-main1
+
+.column.bg-main1[.content.vmiddle.center[
+
+# Data visualisation
+
+
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/horst_ggplot.png", width="70%"&gt;
+
+[@allison_horst](https://twitter.com/allison_horst)
+
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[A plot of the Sydney Beaches data]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 middle center
+
+.pull.left[.pad1[.font2[
+
+```r
+# load data
+beaches &lt;- read_csv(here("data","sydneybeaches3.csv")) 
+
+# show data
+beaches
+```
+
+```
+## # A tibble: 344 x 12
+##    date        year month   day season rainfall temperature enterococci
+##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+##  1 2013-01-02  2013     1     2      1      0          23.4         6.7
+##  2 2013-01-06  2013     1     6      1      0          30.3         2  
+##  3 2013-01-12  2013     1    12      1      0          31.4        69.1
+##  4 2013-01-18  2013     1    18      1      0          46.4         9  
+##  5 2013-01-24  2013     1    24      1      0          27.5        33.9
+##  6 2013-01-30  2013     1    30      1      0.6        26.6        26.5
+##  7 2013-02-05  2013     2     5      1      0.1        25.7        66.9
+##  8 2013-02-11  2013     2    11      1      8          22.2       118. 
+##  9 2013-02-17  2013     2    17      1     13.6        26.3        75  
+## 10 2013-02-23  2013     2    23      1      7.2        24.8       311. 
+## # ... with 334 more rows, and 4 more variables: day_num &lt;dbl&gt;,
+## #   month_num &lt;dbl&gt;, month_name &lt;chr&gt;, season_name &lt;chr&gt;
+```
+]]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+A simple plot
+
+
+```r
+ggplot(
+  beaches, 
+  aes(temperature, rainfall)
+) + 
+geom_point()
+```
+
+- A little verbose?
+- Not the prettiest plot?
+- Why is it like this?
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/introplot-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Painting a Picture]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+.center[
+# ggplot2 is...
+]
+&lt;br&gt;
+
+## A grammar...
+
+- grammars compose &amp; reuse small parts
+- complex structures from simpler units
+
+## ...of graphics
+
+- uses the "painters model"
+- a plot is built in layers
+- each layer is drawn on top of the last
+
+]]]
+]]
+
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/trinity-treft-696428-unsplash.jpg", width="70%"&gt;
+
+[Image credit: Trinity Treft](https://unsplash.com/photos/waYWz3vAYJQ)
+
+]]
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+A blank canvas
+
+
+```r
+ggplot()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/blankcanvas-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Specify the .orange[data]
+
+```r
+ggplot(
+* data = beaches
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/stillblankcanvas-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+A .orange[mapping] from data onto plot .orange[aesthetics]
+
+```r
+ggplot(
+  data = beaches,
+* mapping = aes(
+*   x = temperature,
+*   y = rainfall
+* )
+)
+```
+
+
+- .orange[x]-axis location
+- .orange[y]-axis location
+- .orange[colour] of marker
+- .orange[fill] of a marker
+- .orange[shape] of a marker, etc.
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/aesthetics-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add a plot .orange[layer]
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall
+  ) 
+) + 
+*geom_point()
+```
+
+- the .orange[points]
+- the .orange[lines]
+- the .orange[histograms]
+- etc
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_layer-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add layer-specific parameters
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall
+  ) 
+) + 
+*geom_point(size = 3)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_fixedaesthetic-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add layer-specific mappings
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall
+  ) 
+) + 
+geom_point(
+* mapping = aes(colour = season_name),
+  size = 3
+)   
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_layeraesthetic-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Add more layers to the plotcake
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season_name),
+  size = 3
+) + 
+*geom_rug()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/two_layers-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Split into .orange[facets]
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season_name), 
+  size = 2
+) + 
+geom_rug() + 
+*facet_wrap(vars(season_name))
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_facets-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Remove an unwanted legend?
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season_name), 
+  size = 2,
+* show.legend = FALSE
+) + 
+geom_rug() + 
+facet_wrap(vars(season_name)) 
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/remove_legend-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Modify the .orange[theme]
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall
+  ) 
+) + 
+geom_point(
+  mapping = aes(colour = season_name), 
+  size = 2,
+  show.legend = FALSE 
+) + 
+geom_rug() + 
+facet_wrap(vars(season_name)) + 
+*theme_bw()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_theme-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+(Nothing to see here...)
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall)) + 
+geom_point(
+  mapping = aes(colour = season_name), 
+  size = 2,
+  show.legend = FALSE) + 
+geom_rug() + 
+facet_wrap(vars(season_name)) + 
+theme_bw()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_theme2-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Make nicer titles
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall)) + 
+geom_point(
+  mapping = aes(colour = season_name), 
+  size = 2,
+  show.legend = FALSE) +  
+geom_rug() + 
+facet_wrap(vars(season_name)) + 
+theme_bw() +
+*labs(
+* title = "Sydney weather by season",
+* subtitle = "Data from 2013 to 2018",
+* x = "Temperature (Celsius)",
+* y = "Rainfall (mm)"
+*) 
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_titles-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Done! Our plotcake is baked.
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature, 
+    y = rainfall)) + 
+geom_point(
+  mapping = aes(colour = season_name), 
+  size = 2,
+  show.legend = FALSE) +  
+geom_rug() + 
+facet_wrap(vars(season_name)) + 
+theme_bw() +
+labs( 
+  title = "Sydney weather by season", 
+  subtitle = "Data from 2013 to 2018", 
+  x = "Temperature (Celsius)", 
+  y = "Rainfall (mm)" 
+) 
+```
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/done-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+All the ingredients are needed!
+
+- Data
+- Aesthetics
+- Layers
+- Facets
+- Theme
+- (Coordinates)
+- (Scales)
+
+]]]
+]]
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+So when I type this...
+
+```r
+ggplot(
+  beaches, 
+  aes(temperature, rainfall)
+) + 
+geom_point()
+```
+
+]]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+All the ingredients are needed!
+
+- Data
+- Aesthetics
+- Layers
+- Facets
+- Theme
+- (Coordinates)
+- (Scales)
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pull.left[.pad1[.font2[
+What I get is this...
+
+```r
+ggplot(
+  data = beaches, 
+  mapping = aes(
+    x = temperature, y = rainfall)) + 
+layer(
+  geom = "point",
+  stat = "identity",
+  position = "identity") + 
+facet_null() +
+theme_grey() + 
+coord_cartesian() + 
+scale_x_continuous() + 
+scale_y_continuous()
+```
+
+]]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 01&lt;br&gt;
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Aesthetics]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Locations (.orange[x] and .orange[y]) are aesthetics
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+*   x = date,
+*   y = log10(enterococci)
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[colour] can be an aesthetic
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+*   colour = season_name
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[group] aesthetic matters!
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+*   group = 1,
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[group] aesthetic matters!
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+*   group = month,
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[fill] can be an aesthetic
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+*   fill = season_name
+  ) 
+) + 
+*geom_histogram()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 02&lt;br&gt;
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Geoms]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Points and lines are "simple" geoms
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Points and lines are "simple" geoms
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_point()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms can be layered and take parameters
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_point(size = 5) +
+*geom_line(colour = "red")
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The order of geoms matters
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_line(colour = "red") +
+*geom_point(size = 5)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms can have different mappings
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)) ) + 
+geom_line(
+  linewidth = 2, 
+* colour = "black") +
+geom_point(
+* mapping = aes(colour = season_name),
+  size = 5) 
+```
+
+- Must be consistent
+- Cannot map .orange[x] to two variables
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+*geom_boxplot()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+*geom_violin()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+*geom_bin2d()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+*geom_hex()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+*geom_density_2d()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() +
+*geom_smooth()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() +
+*geom_smooth(method = "lm")
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 03&lt;br&gt;
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[How are layers structured?]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Let's create a plot with no layers!
+
+```r
+p &lt;- ggplot(
+  data = beaches,
+  mapping = aes(x = temperature)) + 
+facet_wrap(vars(season_name)) + 
+labs( 
+  title = "Sydney temperature, 2013-2018", 
+  x = "Temperature (Celsius)", y = "") 
+
+print(p)
+```
+
+- The partial plot is stored
+- Can add to it as needed
+- Useful for programming
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Layers can compute things!
+
+```r
+p + geom_histogram() 
+```
+
+- histograms are not "in the data"
+- this is computed by the layer...
+- (...sort of)
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_histogram-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Layers can compute things!
+
+```r
+p1 &lt;- p + geom_histogram() 
+p2 &lt;- p + geom_density() 
+p2
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/add_density-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The layer information... density
+
+```r
+p2$layers
+```
+
+```
+## [[1]]
+## geom_density: na.rm = FALSE
+## stat_density: na.rm = FALSE
+## position_identity
+```
+
+Each layer specifies:
+- A .orange[geom]: the graphical object to be drawn
+- A .orange[stat]: what "statistic" it is applied to
+- A .orange[position]: how it is placed
+
+]]]
+]]
+--
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The layer information... histogram
+
+```r
+p1$layers
+```
+
+```
+## [[1]]
+## geom_bar: na.rm = FALSE
+## stat_bin: binwidth = NULL, bins = NULL, na.rm = FALSE, pad = FALSE
+## position_stack
+```
+
+&lt;br&gt;
+- There is hidden complexity!
+- Let's dig into this...
+
+
+]]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Our histogram...
+
+```r
+p + geom_histogram(
+  stat = "bin",
+  position = "stack"
+) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Our histogram...
+
+```r
+p + stat_bin(
+  geom = "bar",
+  position = "stack"
+) 
+```
+
+- It is the same?!
+- It is, but don't do this!
+- Use geom to make layers
+- Use stat to change computation
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Reverse engineering...
+
+```r
+p + geom_histogram()
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Reverse engineering...
+
+```r
+p + geom_bar(
+  stat = "bin", 
+  position = "stack"
+) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Making a "dot histogram"
+
+```r
+p + geom_point(
+  stat = "bin", 
+  position = "stack" 
+) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+&lt;br&gt;
+## [Why are you like this?](https:/cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
+
+"Unfortunately, due to an early design mistake I called these either stat\_() or geom\_(). A better decision would have been to call them layer\_() functions: that’s a more accurate description because every layer involves a stat and a geom."
+
+
+]]]
+]]
+--
+.column.bg-main3[.content.vmiddle.center[
+
+&lt;img src="images/hadley.gif", width="70%"&gt;
+
+[Hadley Wickham](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
+
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 04&lt;br&gt;
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Positioning]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+This is not so helpful!
+
+```r
+f &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    fill = season_name)
+  ) 
+
+f + geom_density()
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+f + geom_density(
+  position = "identity",
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[identity]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+f + geom_density(
+* position = "stack",
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[stack]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+f + geom_density(
+* position = "fill",
+  alpha = .5
+)
+```
+
+- Geom: density
+- Stat: density
+- Position: .orange[fill]
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-72-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+This is not so helpful!
+
+```r
+g &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = year,
+    y = temperature)
+  ) 
+
+g + geom_point()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-74-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+g + geom_point(
+  position = "identity",
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[identity]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-76-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+g + geom_point(
+  position = "jitter",
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[jitter]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Let's be clearer...
+
+```r
+g + geom_point(
+* position = position_jitter(
+*   width = .1, height = 0),
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[jitter]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-80-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+In fact...
+
+```r
+*g + geom_jitter(
+* width = .1,
+* height = 0,
+  alpha = .5,
+  size = 3
+)
+```
+
+- Geom: point
+- Stat: identity
+- Position: .orange[jitter]
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-82-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 05&lt;br&gt;
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Stats]
+(missing!!)
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 06&lt;br&gt;
+(missing!!)
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Facetting]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A cluttered density plot...
+
+```r
+a &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+    fill = season_name )
+) + geom_density(
+  show.legend = FALSE)
+
+print(a)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-84-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+
+```r
+a + facet_grid(
+  rows = vars(season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-86-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+
+```r
+a + facet_grid(
+  cols = vars(season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-88-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+
+```r
+a + facet_grid(
+  rows = vars(season_name),
+  cols = vars(year)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-90-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting by wrapping...
+
+```r
+a + facet_wrap(
+  facets = vars(season_name), 
+  nrow = 2)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-92-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting by wrapping...
+
+```r
+a + facet_wrap(
+  facets = vars(year, season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-94-1.png)&lt;!-- --&gt;
+]]
+]]
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 07&lt;br&gt;
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Scales (location)]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A badly scaled plot...
+
+```r
+r &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = temperature,
+    y = enterococci,
+    colour = season_name,
+    group = 1)) +
+  geom_point()
+
+print(r)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-96-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Better!
+
+```r
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-98-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Better!
+
+```r
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-100-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Even better!
+
+```r
+r + scale_y_continuous(
+  name = "Enterococci (cfu/100ml)",
+  trans = "log10",
+  labels = scales::number_format(
+    digits = 3)
+  ) + 
+  scale_x_continuous(
+    name = "Temperature",
+    labels = scales::unit_format(
+      suffix = "°C")
+  )
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-102-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 08&lt;br&gt;
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Scales (colour/fill)]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Now where were we...
+
+```r
+b
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-104-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Colour/fill aesthetics have scales
+
+```r
+b + scale_colour_discrete(
+  name = "Season"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-106-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Many packages provide scales/palettes
+
+```r
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "lajolla"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-108-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Many packages provide scales/palettes
+
+```r
+b + scico::scale_colour_scico_d(
+  name = "Season",
+  palette = "bilbao"
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-110-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 09&lt;br&gt;
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Coordinates]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+(Some preprocessing...)
+
+```r
+rain &lt;- beaches %&gt;% 
+  group_by(
+    month, year, season_name
+    ) %&gt;%
+  summarise(
+    rain = mean(rainfall)
+  ) %&gt;%
+  ungroup() %&gt;%
+  spread(
+    key = year, 
+    value = rain
+  )
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+```
+## # A tibble: 12 x 8
+##    month season_name `2013` `2014` `2015` `2016` `2017`  `2018`
+##    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+##  1     1 Summer        0.10  0.933   4.6   12.1   2.08   4.24  
+##  2     2 Summer        7.22  6.6     2.6    9.24  6.42   0.16  
+##  3     3 Autumn        5.72  4.53    5.75  12.3   7.62   3.4   
+##  4     4 Autumn        4.08  2.4     4.2    6.16 11.7    0.4   
+##  5     5 Autumn        1.97  0.12    2.22   0.05  0.317  0.0167
+##  6     6 Winter       23.3   2.85    2.96   4.27 11.5    4.04  
+##  7     7 Winter        0     0       3.23   8.68  0      0.02  
+##  8     8 Winter        2.08  5.43   12.4    0.2   1.56   0.633 
+##  9     9 Spring        0.36 NA       6.32   2.3   0.3    0.08  
+## 10    10 Spring        9.2   1.5     1.12   1.30  4.97  18     
+## 11    11 Spring       NA     1.5     3.32   2.28  0.12  NA     
+## 12    12 Summer        0     5.05   17.6    6.72  0     NA
+```
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season_name
+  )
+) + 
+geom_point(size = 5) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-114-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season_name
+  )
+) + 
+geom_point(size = 5) + 
+*geom_abline(
+* slope = 1,
+* intercept = 0
+*) 
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-116-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season_name
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline( 
+  slope = 1, 
+  intercept = 0 
+) + 
+*coord_equal()
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-118-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season_name
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline( 
+  slope = 1, 
+  intercept = 0 
+) + 
+coord_equal(
+* xlim = c(0, 25),
+* ylim = c(0, 25)
+)
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-120-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple scatterplot
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x = `2013`,
+    y = `2017`,
+    colour = season_name
+  )
+) + 
+geom_point(size = 5) + 
+geom_abline( 
+  slope = 1, 
+  intercept = 0 
+) + 
+*coord_cartesian(
+  xlim = c(0, 25), 
+  ylim = c(0, 25) 
+)
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-122-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple bar plot
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season_name,
+    fill = season_name
+  )
+) + 
+geom_col()
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-124-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple bar plot, ruined
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season_name,
+    fill = season_name
+  )
+) + 
+geom_col() + 
+*coord_polar()
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-126-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A simple bar plot, ruined
+
+```r
+ggplot(
+  data = rain,
+  mapping = aes(
+    x =  month,
+    y = `2017`,
+    colour = season_name,
+    fill = season_name
+  )
+) + 
+geom_col() + 
+*coord_polar(theta = "y")
+```
+
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-128-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 10&lt;br&gt;
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Themes]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Here's one from earlier...
+
+```r
+th &lt;- b + 
+  scico::scale_colour_scico_d(
+    name = "Season",
+    palette = "lajolla")
+
+th
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-130-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+The default theme
+
+```r
+th + theme_grey()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-132-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+
+```r
+th + theme_dark()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-134-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+
+```r
+th + theme_bw()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-136-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Other global themes
+
+```r
+th + theme_void()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-138-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"
+  ) 
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-140-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- th + theme(
+  plot.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"), 
+  panel.background = element_rect(
+    fill = "#562457",
+    colour = "#562457")
+)
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-142-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- u + theme(
+ legend.background = element_rect(
+    fill = "#BA68C8", 
+    colour = "#BA68C8"))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-144-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- u + theme(
+  text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-146-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Customising a theme
+
+```r
+u &lt;- u + theme(
+  axis.text = element_text(
+    colour = "white",
+    size = 18
+  ))
+u
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-148-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.pull.left[.pad1[.font2[
+Kunoichi theme (incomplete)
+
+```r
+theme_kunoichi &lt;- function(...) {
+  theme_grey(...) %+replace%
+  theme( 
+    plot.background = element_rect(fill = "#BA68C8", colour = "#BA68C8"),
+    panel.background = element_rect(fill = "#562457", colour = "#562457"),
+    legend.background = element_rect(fill = "#BA68C8", colour = "#BA68C8"),
+    plot.title = element_text(colour = "white"),
+    plot.subtitle = element_text(colour = "white"),
+    axis.title = element_text(colour = "white"),
+    axis.text = element_text(colour = "white"),
+    legend.title = element_text(colour = "white"),
+    legend.text = element_text(colour = "white")
+  )
+} 
+```
+
+]]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+And so...
+
+```r
+th + theme_kunoichi()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-151-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 11&lt;br&gt;
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Extensions (in brief!)]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Overriding defaults
+
+
+```r
+geom_dothistogram &lt;- function(
+  geom = "point", ...){
+  
+  layer &lt;- stat_bin(geom = geom, ...)
+  return(layer)
+}
+
+*p + geom_dothistogram(size = 3)
+```
+
+]]]
+]]
+
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](index_files/figure-html/unnamed-chunk-153-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Entirely new geoms rely on .orange[grid] graphics...
+
+
+```r
+my_arrow &lt;- function(data, panel_params, coord) {
+  coords &lt;- coord$transform(data, panel_params)
+  trans &lt;- function(coords, fun) {
+    coords$length * coords$size * fun(2 * pi * coords$direction / 360)
+  }
+
+  grid::polylineGrob(
+    x = c(coords$x, coords$x + trans(coords, cos)),
+    y = c(coords$y, coords$y + trans(coords, sin)),
+    id = c(1:length(coords$x), 1:length(coords$x)),
+    arrow = arrow(
+      angle = 30,
+      length = unit(coords$size * coords$length/2, "native")),
+    default.units = "native",
+    gp = grid::gpar(col = coords$colour, lwd = coords$linewidth)
+  )
+}
+```
+
+]]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Then we create a new .orange[ggproto] object...
+
+
+```r
+GeomVector &lt;- ggproto(
+  "GeomVector", Geom,
+  required_aes = c("x", "y", 
+                   "direction", "length"),
+  default_aes = aes(
+    colour = "black", fill = NA, size = .025,
+    linetype = 1, alpha = 1, linewidth = 1
+  ),
+  draw_key = draw_key_point,
+  draw_panel = my_arrow
+)
+```
+
+]]]
+]]
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+What are you???
+
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Now we define the layer function...
+
+
+```r
+geom_vector &lt;- function(
+  mapping = NULL, data = NULL,
+  stat = "identity", position = "identity",
+  na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...) {
+
+  ggplot2::layer(
+    geom = GeomVector, mapping = mapping,
+    data = data, stat = stat,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+```
+
+]]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Now we use it!
+
+
+```r
+vectors &lt;- read_csv(
+  here("data","vector_field.csv"))
+
+ggplot(
+  data = vectors,
+  mapping = aes(
+    x = xval,
+    y = yval,
+    direction = dir,
+    length = len,
+    colour = cosx)
+  ) +
+  geom_vector(linewidth = 2)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-158-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 12&lt;br&gt;
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Animation]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+
+```r
+# read geospatial data
+syd &lt;- read_sf(here("data","sydney.shp"))
+syd$id &lt;- 1:dim(syd)[1]
+
+# plot it using sf
+map &lt;- ggplot(data = syd) +
+  geom_sf(mapping = aes(
+      geometry = geometry, fill = ar_2016),
+    colour = "white",      
+    show.legend = FALSE) + 
+  theme_kunoichi()
+
+# gif it using gganimate
+map +
+  transition_states(id) +
+  shadow_mark(alpha = .5)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-160-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class:bg-main1
+
+.content.vtop.center[
+.pull.left[.pad1[.font2[
+
+
+```r
+bridges &lt;- read_csv( here("data","brownian_bridges.csv"))
+bridges
+```
+
+```
+## # A tibble: 160 x 4
+##     Time Horizontal Vertical Series
+##    &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+##  1     1     0         0          1
+##  2     2    -0.133    -0.137      1
+##  3     3    -0.253    -0.164      1
+##  4     4    -0.0901   -0.104      1
+##  5     5    -0.0588   -0.168      1
+##  6     6    -0.524    -0.431      1
+##  7     7    -0.503    -0.778      1
+##  8     8    -0.487    -0.599      1
+##  9     9    -0.167    -0.370      1
+## 10    10    -0.0453   -0.259      1
+## # ... with 150 more rows
+```
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Brownian bridge paths
+
+```r
+a &lt;- ggplot(
+  data = bridges,
+  mapping = aes(
+    x = Horizontal,
+    y = Vertical,
+    colour = factor(Series))
+) + geom_line(colour = "black") +
+  geom_point(
+    show.legend = FALSE,
+    size = 2) +
+  coord_equal() +
+  xlim(-1.5, 1) +
+  ylim(-1.25, 1.25)
+
+a + facet_wrap(vars(Series))
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-163-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+An alternative representation
+
+```r
+b &lt;- ggplot(
+  data = bridges,
+  mapping = aes(
+    x = Horizontal,
+    y = Vertical,
+    colour = factor(Series))
+) +
+  geom_point(
+    show.legend = FALSE,
+    size = 4) +
+  coord_equal() +
+  xlim(-1.5, 1) +
+  ylim(-1.25, 1.25)
+
+b + facet_wrap(vars(Time))
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-165-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Animation as faceting over time...
+
+```r
+# Instead of this:
+# b + facet_wrap(facets = vars(Time))
+
+# Do this:
+b + transition_time(time = Time)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-167-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+You can add shadows...
+
+```r
+b + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-169-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+You can add shadows...
+
+```r
+c &lt;- b + 
+  transition_time(time = Time) + 
+  shadow_wake(wake_length = .2)
+
+animate(c, detail = 5, type = "cairo")
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-171-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+You can add shadows...
+
+```r
+c &lt;- b + 
+  theme_kunoichi() +
+  transition_time(time = Time) + 
+  shadow_wake(
+    wake_length = .3,
+    size = 15,
+    colour = "white",
+    falloff = "quintic-in",
+    wrap = FALSE
+  )  
+
+animate(c, detail = 5, type = "cairo")
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-173-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+You can animate different things...
+
+```r
+c &lt;- a + 
+  theme_kunoichi() +
+  transition_states(states = Series) 
+
+animate(c, detail = 5, type = "cairo")
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-175-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A familiar plot!
+
+```r
+d &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = temperature,
+    colour = season_name,
+    group = 1
+  )
+) +
+geom_path() +
+geom_point()
+
+d
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+
+![](index_files/figure-html/unnamed-chunk-177-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+This seems to make sense!
+
+```r
+d + transition_time(date)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+Although...
+![](index_files/figure-html/unnamed-chunk-179-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Try a reveal transition?
+
+```r
+d + transition_reveal(date)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+What's up with the dot?
+![](index_files/figure-html/unnamed-chunk-181-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+An alternative possibility
+
+```r
+d + 
+  transition_time(date) + 
+  shadow_mark(alpha = .5)
+```
+
+]]]
+]]
+
+
+--
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+Although...
+![](index_files/figure-html/unnamed-chunk-183-1.gif)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercises 13-14&lt;br&gt;
+]]
+
+
+&lt;!-- DONE --&gt;
+---
+
+class: bg-main1 middle center
+
+## thank u
+    </textarea>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
