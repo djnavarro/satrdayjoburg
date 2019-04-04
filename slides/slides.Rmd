@@ -2361,6 +2361,194 @@ class: bg-main1 center middle hide-slide-number
 ]]
 
 
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A cluttered density plot...
+```{r, eval=FALSE, message = FALSE}
+a <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+    fill = season_name )
+) + geom_density(
+  show.legend = FALSE)
+
+print(a)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+a <- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+    fill = season_name )
+) + geom_density(show.legend = FALSE)
+
+print(a)
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+```{r, eval=FALSE, message = FALSE}
+a + facet_grid(
+  rows = vars(season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+a + facet_grid(
+  rows = vars(season_name)
+)
+```
+]]
+]]
+
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+```{r, eval=FALSE, message = FALSE}
+a + facet_grid(
+  cols = vars(season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+a + facet_grid(
+  cols = vars(season_name)
+)
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+```{r, eval=FALSE, message = FALSE}
+a + facet_grid(
+  rows = vars(season_name),
+  cols = vars(year)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+a + facet_grid(
+  rows = vars(season_name),
+  cols = vars(year)
+)
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting by wrapping...
+```{r, eval=FALSE, message = FALSE}
+a + facet_wrap(
+  facets = vars(season_name), 
+  nrow = 2)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+a + facet_wrap(
+  facets = vars(season_name), 
+  nrow = 2)
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting by wrapping...
+```{r, eval=FALSE, message = FALSE}
+a + facet_wrap(
+  facets = vars(year, season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+a + facet_wrap(
+  facets = vars(year, season_name)
+)
+```
+]]
+]]
+
 <!-- *********** NEW SLIDE ************** -->
 ---
 

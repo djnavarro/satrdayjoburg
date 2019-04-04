@@ -2020,6 +2020,170 @@ class: bg-main1 center middle hide-slide-number
 ]]
 
 
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+A cluttered density plot...
+
+```r
+a &lt;- ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+    fill = season_name )
+) + geom_density(
+  show.legend = FALSE)
+
+print(a)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-84-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+
+```r
+a + facet_grid(
+  rows = vars(season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-86-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+
+```r
+a + facet_grid(
+  cols = vars(season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-88-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting on a grid...
+
+```r
+a + facet_grid(
+  rows = vars(season_name),
+  cols = vars(year)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-90-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting by wrapping...
+
+```r
+a + facet_wrap(
+  facets = vars(season_name), 
+  nrow = 2)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-92-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+.pull.left[.pad1[.font2[
+Facetting by wrapping...
+
+```r
+a + facet_wrap(
+  facets = vars(year, season_name)
+)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-94-1.png)&lt;!-- --&gt;
+]]
+]]
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
@@ -2168,7 +2332,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-86-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-98-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2205,7 +2369,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-88-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-100-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2245,7 +2409,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-90-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-102-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2287,7 +2451,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-92-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-104-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2328,7 +2492,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-94-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-106-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2366,7 +2530,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-96-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-108-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2406,7 +2570,7 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-98-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-110-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2484,7 +2648,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-100-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-112-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2530,7 +2694,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-102-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-114-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -2678,7 +2842,7 @@ ggplot(
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 
-![](slides_files/figure-html/unnamed-chunk-107-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-119-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
