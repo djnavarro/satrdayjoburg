@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 # Data Visualisation in R
 ## From ggplot2 to gganimate
 ### <br><br>Danielle Navarro    <span>&lt;i class="fab  fa-twitter faa-float animated "&gt;&lt;/i&gt; @djnavarro</span>
-### <a href="https://djnavarro.github.io/satrdayjoburg/" class="uri">https://djnavarro.github.io/satrdayjoburg/</a><br><br>6 April 2019
+### <a href='https://djnavarro.github.io/satrdayjoburg/'>https://djnavarro.github.io/satrdayjoburg/</a><br><br>5 April 2019
 
 ---
 
@@ -31,15 +31,6 @@ class: split-two bg-main1
 
 # Data visualisation
 
-&lt;br&gt;
-
-.pull.left[.pad1[
-
-### .orange[**What?**] Drawing pictures
-### .orange[**Why?**] Understand your data
-### .orange[**How?**] Using tidyverse (ggplot2)
-
-]]
 
 ]]
 
@@ -59,7 +50,7 @@ class: split-two bg-main1
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[The Sydney Beaches Data]
+.font4[A plot of the Sydney Beaches data]
 ]]
 
 
@@ -74,7 +65,10 @@ class: bg-main1 middle center
 .pull.left[.pad1[.font2[
 
 ```r
-beaches &lt;- here("data","sydneybeaches3.csv") %&gt;% read_csv() 
+# load data
+beaches &lt;- read_csv(here("data","sydneybeaches3.csv")) 
+
+# show data
 beaches
 ```
 
@@ -100,6 +94,56 @@ beaches
 
 
 
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+A simple plot
+
+
+```r
+ggplot(
+  beaches, 
+  aes(temperature, rainfall)
+) + 
+geom_point()
+```
+
+- A little verbose?
+- Not the prettiest plot?
+- Why is it like this?
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/introplot-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 01&lt;br&gt;
+]]
+
+
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
@@ -120,6 +164,11 @@ class: split-50 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+
+.center[
+# ggplot2 is...
+]
+&lt;br&gt;
 
 ## A grammar...
 
@@ -151,7 +200,7 @@ class: split-50 bg-main1
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
@@ -181,11 +230,11 @@ ggplot()
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Specify the data
+Specify the .orange[data]
 
 ```r
 ggplot(
@@ -208,12 +257,12 @@ ggplot(
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Specify the aesthetics
+A .orange[mapping] from data onto plot .orange[aesthetics]
 
 ```r
 ggplot(
@@ -225,11 +274,12 @@ ggplot(
 )
 ```
 
-- x-axis location
-- y-axis location
-- colour of marker
-- fill of a marker
-- shape of a marker
+
+- .orange[x]-axis location
+- .orange[y]-axis location
+- .orange[colour] of marker
+- .orange[fill] of a marker
+- .orange[shape] of a marker, etc.
 ]]]
 ]]
 
@@ -246,12 +296,12 @@ ggplot(
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Add a layer
+Add a plot .orange[layer]
 
 ```r
 ggplot(
@@ -263,6 +313,11 @@ ggplot(
 ) + 
 *geom_point()
 ```
+
+- the .orange[points]
+- the .orange[lines]
+- the .orange[histograms]
+- etc
 
 ]]]
 ]]
@@ -278,12 +333,12 @@ ggplot(
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Add layer-specific aesthetics
+Add layer-specific parameters
 
 ```r
 ggplot(
@@ -313,7 +368,7 @@ ggplot(
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
@@ -351,12 +406,12 @@ geom_point(
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Add more layers
+Add more layers to the plotcake
 
 ```r
 ggplot(
@@ -387,12 +442,12 @@ geom_point(
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Split into facets
+Split into .orange[facets]
 
 ```r
 ggplot(
@@ -426,12 +481,12 @@ geom_rug() +
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Remove an unwanted legend
+Remove an unwanted legend?
 
 ```r
 ggplot(
@@ -464,12 +519,12 @@ facet_wrap(vars(season_name))
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Modify the theme
+Modify the .orange[theme]
 
 ```r
 ggplot(
@@ -590,7 +645,7 @@ class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Done!
+Done! Our plotcake is baked.
 
 ```r
 ggplot(
@@ -652,12 +707,11 @@ Ingredients of this plot/cake
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
-class: center middle hide-slide-number
+class: white bg-black center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise: Test drive with ggplot2 &lt;br&gt;
-https://djnavarro.github.io/some_url_here
+Exercise 02&lt;br&gt;
 ]]
 
 
@@ -1143,7 +1197,7 @@ pic + geom_histogram(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ]]
 ]]
@@ -1174,7 +1228,7 @@ pic + stat_bin(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 
 
 ]]
@@ -1205,7 +1259,7 @@ pic + stat_bin(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1234,7 +1288,7 @@ pic + geom_point(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1449,7 +1503,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1486,7 +1540,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1526,7 +1580,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1568,7 +1622,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1609,7 +1663,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1647,7 +1701,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1687,7 +1741,7 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1807,7 +1861,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 ]]
 ]]
 

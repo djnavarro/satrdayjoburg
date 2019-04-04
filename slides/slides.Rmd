@@ -2,7 +2,7 @@
 title: "Data Visualisation in R"
 subtitle: "From ggplot2 to gganimate"
 author: "<br><br>Danielle Navarro &nbsp;&nbsp;&nbsp;`r anicon::faa('twitter', animate='float', rtext=' @djnavarro')`"
-date: "https://djnavarro.github.io/satrdayjoburg/<br><br>6 April 2019"
+date: "<a href='https://djnavarro.github.io/satrdayjoburg/'>https://djnavarro.github.io/satrdayjoburg/</a><br><br>5 April 2019"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -29,15 +29,6 @@ class: split-two bg-main1
 
 # Data visualisation
 
-<br>
-
-.pull.left[.pad1[
-
-### .orange[**What?**] Drawing pictures
-### .orange[**Why?**] Understand your data
-### .orange[**How?**] Using tidyverse (ggplot2)
-
-]]
 
 ]]
 
@@ -57,7 +48,7 @@ class: split-two bg-main1
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[The Sydney Beaches Data]
+.font4[A plot of the Sydney Beaches data]
 ]]
 
 
@@ -71,10 +62,64 @@ class: bg-main1 middle center
 
 .pull.left[.pad1[.font2[
 ```{r beachesdata, eval=TRUE, message=FALSE}
-beaches <- here("data","sydneybeaches3.csv") %>% read_csv() 
+# load data
+beaches <- read_csv(here("data","sydneybeaches3.csv")) 
+
+# show data
 beaches
 ```
 ]]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-40 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+
+A simple plot
+
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  beaches, 
+  aes(temperature, rainfall)
+) + 
+geom_point()
+```
+
+- A little verbose?
+- Not the prettiest plot?
+- Why is it like this?
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r introplot, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(beaches, aes(temperature, rainfall)) + geom_point()
+```
+
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 01<br>
+]]
 
 
 
@@ -99,6 +144,11 @@ class: split-50 bg-main1
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
+
+.center[
+# ggplot2 is...
+]
+<br>
 
 ## A grammar...
 
@@ -130,7 +180,7 @@ class: split-50 bg-main1
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
@@ -161,11 +211,11 @@ ggplot()
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Specify the data
+Specify the .orange[data]
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches #<<
@@ -191,12 +241,12 @@ ggplot(
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Specify the aesthetics
+A .orange[mapping] from data onto plot .orange[aesthetics]
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -207,11 +257,12 @@ ggplot(
 )
 ```
 
-- x-axis location
-- y-axis location
-- colour of marker
-- fill of a marker
-- shape of a marker
+
+- .orange[x]-axis location
+- .orange[y]-axis location
+- .orange[colour] of marker
+- .orange[fill] of a marker
+- .orange[shape] of a marker, etc.
 ]]]
 ]]
 
@@ -236,12 +287,12 @@ ggplot(
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Add a layer
+Add a plot .orange[layer]
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -252,6 +303,11 @@ ggplot(
 ) + 
 geom_point() #<<
 ```
+
+- the .orange[points]
+- the .orange[lines]
+- the .orange[histograms]
+- etc
 
 ]]]
 ]]
@@ -276,12 +332,12 @@ geom_point() #<<
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Add layer-specific aesthetics
+Add layer-specific parameters
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -319,7 +375,7 @@ geom_point(size = 3) #<<
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
@@ -368,12 +424,12 @@ geom_point(
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Add more layers
+Add more layers to the plotcake
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -416,12 +472,12 @@ geom_rug()
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Split into facets
+Split into .orange[facets]
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -468,12 +524,12 @@ facet_wrap(vars(season_name)) #<<
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Remove an unwanted legend
+Remove an unwanted legend?
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -520,12 +576,12 @@ facet_wrap(vars(season_name))
 
 <!-- *********** NEW SLIDE ************** -->
 ---
-class: split-40 bg-main1
+class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 
 .pull.left[.pad1[.font2[
-Modify the theme
+Modify the .orange[theme]
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -698,7 +754,7 @@ class: split-50 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Done!
+Done! Our plotcake is baked.
 ```{r, eval=FALSE, message = FALSE}
 ggplot(
   data = beaches,
@@ -781,12 +837,11 @@ Ingredients of this plot/cake
 <!-- *********** NEW SLIDE ************** -->
 ---
 
-class: center middle hide-slide-number
+class: white bg-black center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise: Test drive with ggplot2 <br>
-https://djnavarro.github.io/some_url_here
+Exercise 02<br>
 ]]
 
 
