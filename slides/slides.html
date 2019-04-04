@@ -714,6 +714,617 @@ class: bg-main1 center middle hide-slide-number
 
 
 
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Locations (.orange[x] and .orange[y]) are aesthetics
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+*   x = date,
+*   y = log10(enterococci)
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[colour] can be an aesthetic
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+*   colour = season_name
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[group] aesthetic matters!
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+*   group = 1,
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[group] aesthetic matters!
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+*   group = month,
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[fill] can be an aesthetic
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+*   fill = season_name
+  ) 
+) + 
+*geom_histogram()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 02&lt;br&gt;
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Geoms]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Points and lines are "simple" geoms
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Points and lines are "simple" geoms
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_point()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms can be layered and take parameters
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_point(size = 5) +
+*geom_line(colour = "red")
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The order of geoms matters
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+*geom_line(colour = "red") +
+*geom_point(size = 5)
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms can have different mappings
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)) ) + 
+geom_line(
+  linewidth = 2, 
+* colour = "black") +
+geom_point(
+* mapping = aes(colour = season_name),
+  size = 5) 
+```
+
+- Must be consistent
+- Cannot map .orange[x] to two variables
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+*geom_boxplot()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+*geom_violin()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+*geom_bin2d()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+*geom_hex()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+*geom_density_2d()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() +
+*geom_smooth()
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+
+```r
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() +
+*geom_smooth(method = "lm")
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+![](slides_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+]]
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 03&lt;br&gt;
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[How are layers structured?]
+]]
+
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 class: split-50 bg-main1
@@ -750,57 +1361,6 @@ labs(
 
 
 
-
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: white bg-black center middle hide-slide-number
-
-.pad1[
-.font4[
-Exercise 02&lt;br&gt;
-]]
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[Geoms]
-]]
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: white bg-black center middle hide-slide-number
-
-.pad1[
-.font4[
-Exercise 03&lt;br&gt;
-]]
-
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[How are layers structured?]
-]]
-
-
-
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 class: split-40 bg-main1
@@ -825,6 +1385,8 @@ pic
 
 ]]
 ]]
+
+
 
 
 
@@ -974,7 +1536,7 @@ pic + geom_histogram(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
 
 ]]
 ]]
@@ -1005,7 +1567,7 @@ pic + stat_bin(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
 
 
 ]]
@@ -1036,7 +1598,7 @@ pic + stat_bin(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1065,7 +1627,7 @@ pic + geom_point(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-63-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1312,7 +1874,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1349,7 +1911,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-69-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1389,7 +1951,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-71-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1431,7 +1993,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1472,7 +2034,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-75-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1510,7 +2072,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-77-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1550,7 +2112,7 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-79-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1628,7 +2190,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-81-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1674,7 +2236,7 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-83-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1822,7 +2384,7 @@ ggplot(
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
 
-![](slides_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-88-1.png)&lt;!-- --&gt;
 ]]
 ]]
 

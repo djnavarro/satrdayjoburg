@@ -9,3 +9,8 @@ purrr
 dplyr
 stringr
 forcats
+hexbin
+gganimate
+sf
+usethis
+scico

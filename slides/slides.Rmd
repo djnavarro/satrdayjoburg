@@ -16,10 +16,15 @@ output:
       countIncrementalSlides: false
 ---
 
-```{r setup, include=FALSE, message = FALSE}
+```{r setup, include=FALSE, message = FALSE, warning=FALSE}
 options(htmltools.dir.version = FALSE)
-library(here)
 library(tidyverse)
+library(here)
+library(hexbin)
+library(gganimate)
+library(sf)
+library(usethis)
+library(scico)
 beaches <- read_csv(here("data","sydneybeaches3.csv"))
 ```
 
@@ -844,6 +849,758 @@ class: bg-main1 center middle hide-slide-number
 
 
 
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Locations (.orange[x] and .orange[y]) are aesthetics
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date, #<<
+    y = log10(enterococci) #<<
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date, #<<
+    y = log10(enterococci) #<<
+  ) 
+) + 
+geom_line()
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[colour] can be an aesthetic
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name #<<
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name
+  ) 
+) + 
+geom_line()
+```
+
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[group] aesthetic matters!
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+    group = 1, #<< 
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+    group = 1, #<< 
+  ) 
+) + 
+geom_line()
+```
+
+]]
+]]
+
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[group] aesthetic matters!
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+    group = month, #<< 
+  ) 
+) + 
+geom_line()
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci),
+    colour = season_name,
+    group = month, #<< 
+  ) 
+) + 
+geom_line()
+```
+
+]]
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The .orange[fill] can be an aesthetic
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+    fill = season_name #<<
+  ) 
+) + 
+geom_histogram() #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = log10(enterococci),
+    fill = season_name #<<
+  ) 
+) + 
+geom_histogram() #<<
+```
+
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 02<br>
+]]
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Geoms]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Points and lines are "simple" geoms
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_line() #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_line() #<<
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Points and lines are "simple" geoms
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_point() #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_point() #<<
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms can be layered and take parameters
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_point(size = 5) + #<<
+geom_line(colour = "red") #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_point(size = 5) + #<<
+geom_line(colour = "red") #<<
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+The order of geoms matters
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_line(colour = "red") + #<<
+geom_point(size = 5) #<<
+```
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)
+  ) 
+) + 
+geom_line(colour = "red") + #<<
+geom_point(size = 5) #<<
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms can have different mappings
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)) ) + 
+geom_line(
+  linewidth = 2, 
+  colour = "black") + #<<
+geom_point(
+  mapping = aes(colour = season_name), #<<
+  size = 5) 
+```
+
+- Must be consistent
+- Cannot map .orange[x] to two variables
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci)) ) + 
+geom_line(
+  linewidth = 2, 
+  colour = "black") + #<<
+geom_point(
+  mapping = aes(colour = season_name), #<<
+  size = 5) 
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+geom_boxplot() #<<
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+geom_boxplot() #<<
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+geom_violin() #<<
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = season_name,
+    y = log10(enterococci))
+  ) + 
+geom_violin() #<<
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_bin2d() #<<
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_bin2d() #<<
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_hex() #<<
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_hex()
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_density_2d() #<<
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_density2d() #<<
+```
+]]
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() +
+geom_smooth() #<<
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() + 
+geom_smooth() #<<
+```
+]]
+]]
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+class: split-50 bg-main1
+
+.column.bg-main1[.content.vtop.center[
+
+.pull.left[.pad1[.font2[
+Geoms come in many varieties...
+```{r, eval=FALSE, message = FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() +
+geom_smooth(method = "lm") #<<
+```
+
+
+]]]
+]]
+
+.column.bg-main3[.content.vtop.center[
+.pad1[.font2[
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+ggplot(
+  data = beaches,
+  mapping = aes(
+    x = date,
+    y = log10(enterococci))
+  ) + 
+geom_point() + 
+geom_smooth(method = "lm") #<<
+```
+]]
+]]
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 03<br>
+]]
+
+
+
+
+
+<!-- *********** NEW SLIDE ************** -->
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[How are layers structured?]
+]]
+
+
 <!-- *********** NEW SLIDE ************** -->
 ---
 class: split-50 bg-main1
@@ -872,7 +1629,7 @@ labs(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-```{r baseplot_noprint, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
+```{r, eval=TRUE, message = FALSE, echo=FALSE, cache=TRUE, warning=FALSE}
 pic <- ggplot(
   data = beaches,
   mapping = aes(x = temperature) 
@@ -888,57 +1645,6 @@ labs(
 ```
 
 ]]
-]]
-
-
-
-
-
-
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-
-class: white bg-black center middle hide-slide-number
-
-.pad1[
-.font4[
-Exercise 02<br>
-]]
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[Geoms]
-]]
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-
-class: white bg-black center middle hide-slide-number
-
-.pad1[
-.font4[
-Exercise 03<br>
-]]
-
-
-
-
-
-<!-- *********** NEW SLIDE ************** -->
----
-
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[How are layers structured?]
 ]]
 
 
@@ -968,6 +1674,8 @@ pic
 
 ]]
 ]]
+
+
 
 
 
