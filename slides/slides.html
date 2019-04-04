@@ -130,20 +130,6 @@ geom_point()
 
 
 
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: white bg-black center middle hide-slide-number
-
-.pad1[
-.font4[
-Exercise 01&lt;br&gt;
-]]
-
-
-
-
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
@@ -711,7 +697,7 @@ class: white bg-black center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise 02&lt;br&gt;
+Exercise 01&lt;br&gt;
 ]]
 
 
@@ -722,7 +708,7 @@ Exercise 02&lt;br&gt;
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Introducing ggplot objects]
+.font4[Aesthetics]
 ]]
 
 
@@ -766,250 +752,17 @@ labs(
 
 
 
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: split-50 bg-main1
-
-.column.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-Let's create a plot with no layers!
-
-```r
-pic &lt;- ggplot(
-  data = beaches,
-  mapping = aes(x = temperature) 
-) + 
-facet_wrap(vars(season_name)) + 
-theme_bw() +
-ggtitle( 
-  label = "Sydney temperature by season",
-  subtitle = "Data from 2013 to 2018"
-) +
-xlab("Temperature (Celsius)") +
-ylab("") 
-
-*plot(pic)
-```
-
-]]]
-]]
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-![](slides_files/figure-html/baseplot_plotted-1.png)&lt;!-- --&gt;
-
-]]
-]]
-
-
 
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: split-50 bg-main1
 
-.column.bg-main1[.content.vtop.center[
-
-.pull.left[.pad1[.font2[
-Let's create a plot with no layers!
-
-```r
-pic &lt;- ggplot(
-  data = beaches,
-  mapping = aes(x = temperature) 
-) + 
-facet_wrap(vars(season_name)) + 
-theme_bw() +
-ggtitle( 
-  label = "Sydney temperature by season",
-  subtitle = "Data from 2013 to 2018"
-) +
-xlab("Temperature (Celsius)") +
-ylab("") 
-
-*print(pic)
-```
-
-]]]
-]]
-
-.column.bg-main3[.content.vtop.center[
-.pad1[.font2[
-![](slides_files/figure-html/baseplot_printed-1.png)&lt;!-- --&gt;
-
-]]
-]]
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: bg-main1
-
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-What are you????
-
-```r
-class(pic)
-```
-
-```
-## [1] "gg"     "ggplot"
-```
-]]]
-]
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: bg-main1
-
-.content.vtop.center[
-.pull.left[.pad4[.font1[
-
-```r
-summary(pic)
-```
-
-```
-## data: date, year, month, day, season, rainfall, temperature,
-##   enterococci, month_name, season_name [344x10]
-## mapping:  x = ~temperature
-## faceting: &lt;ggproto object: Class FacetWrap, Facet, gg&gt;
-##     compute_layout: function
-##     draw_back: function
-##     draw_front: function
-##     draw_labels: function
-##     draw_panels: function
-##     finish_data: function
-##     init_scales: function
-##     map_data: function
-##     params: list
-##     setup_data: function
-##     setup_params: function
-##     shrink: TRUE
-##     train_scales: function
-##     vars: function
-##     super:  &lt;ggproto object: Class FacetWrap, Facet, gg&gt;
-```
-]]]
-]
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: bg-main1
-
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-Okaaaay .... what are the *names* of the things in you????
-
-```r
-names(pic)
-```
-
-```
-## [1] "data"        "layers"      "scales"      "mapping"     "theme"      
-## [6] "coordinates" "facet"       "plot_env"    "labels"
-```
-]]]
-]
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: bg-main1
-
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-Example 1: data
-
-```r
-pic$data
-```
-
-```
-## # A tibble: 344 x 10
-##    date        year month   day season rainfall temperature enterococci
-##    &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-##  1 2013-01-02  2013     1     2      1      0          23.4         6.7
-##  2 2013-01-06  2013     1     6      1      0          30.3         2  
-##  3 2013-01-12  2013     1    12      1      0          31.4        69.1
-##  4 2013-01-18  2013     1    18      1      0          46.4         9  
-##  5 2013-01-24  2013     1    24      1      0          27.5        33.9
-##  6 2013-01-30  2013     1    30      1      0.6        26.6        26.5
-##  7 2013-02-05  2013     2     5      1      0.1        25.7        66.9
-##  8 2013-02-11  2013     2    11      1      8          22.2       118. 
-##  9 2013-02-17  2013     2    17      1     13.6        26.3        75  
-## 10 2013-02-23  2013     2    23      1      7.2        24.8       311. 
-## # ... with 334 more rows, and 2 more variables: month_name &lt;chr&gt;,
-## #   season_name &lt;chr&gt;
-```
-]]]
-]
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: bg-main1
-
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-Example 2: mapping
-
-```r
-pic$mapping
-```
-
-```
-## Aesthetic mapping: 
-## * `x` -&gt; `temperature`
-```
-]]]
-]
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: bg-main1
-
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-Quick overview: 
-- data: the actual data
-- layers: what to plot and how to render it
-- scales: how to render x-axis, colour
-- mapping: which variables map to which scales
-- theme: visual styling information
-- coordinates: how to lay it out? Cartesian, polar, etc?
-- facet: how to break the plot into facets
-- plot_env: environment in which to do computation
-- labels: axis labels, titles etc.
-]]]
-]
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: center middle hide-slide-number
+class: white bg-black center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise: Peeking inside the gg object &lt;br&gt;
-https://djnavarro.github.io/some_url_here
+Exercise 02&lt;br&gt;
 ]]
 
 
@@ -1019,7 +772,31 @@ https://djnavarro.github.io/some_url_here
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Layers]
+.font4[Geoms]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 03&lt;br&gt;
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[How are layers structured?]
 ]]
 
 
@@ -1197,7 +974,7 @@ pic + geom_histogram(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ]]
 ]]
@@ -1228,7 +1005,7 @@ pic + stat_bin(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 
 ]]
@@ -1259,7 +1036,7 @@ pic + stat_bin(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1288,7 +1065,7 @@ pic + geom_point(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1324,14 +1101,12 @@ class: split-50 bg-main1
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 
-class: center middle hide-slide-number
+class: white bg-black center middle hide-slide-number
 
 .pad1[
 .font4[
-Exercise: Playing with the layers&lt;br&gt;
-https://djnavarro.github.io/some_url_here
+Exercise 04&lt;br&gt;
 ]]
-
 
 
 
@@ -1342,65 +1117,63 @@ https://djnavarro.github.io/some_url_here
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Where are we up to?]
+.font4[Positioning]
 ]]
 
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: bg-main1
 
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-Ingredients we (kind of) understand
-- .orange[Data] ... the tibble / data frame
-- .orange[Aesthetics] ... the mappings
-- .orange[Layers] ... stats, geoms and positions
-- .orange[Facets] ... relatively simple (sort of)
-- .orange[Labels] ... relatively simple
-- Theme
-- Coordinates
-- Scales
-]]]
-]
+class: white bg-black center middle hide-slide-number
 
+.pad1[
+.font4[
+Exercise 05&lt;br&gt;
+]]
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: bg-main1
 
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-Ingredients that are made of magic sauce
-- Data 
-- Aesthetics
-- Layers
-- Facets
-- Labels
-- .orange[Theme] ... what if I want to tinker?
-- .orange[Coordinates] ... what's this about? 
-- .orange[Scales] ... what's this about?
-]]]
-]
+class: bg-main1 center middle hide-slide-number
 
-
-
+.reveal-text.bg-main2[.pad1[
+.font4[Stats]
+]]
 
 
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
-class: bg-main1
 
-.content.vtop.center[
-.pull.left[.pad1[.font2[
-The rest of the banquet
-- .orange[Extensions] ... how are ggplot extensions made?
-- .orange[Animations] ... how do I make awesome gifs?
-- .orange[Geospatial] ... maps, how are they made?
-]]]
-]
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 06&lt;br&gt;
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Facetting]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 07&lt;br&gt;
+]]
+
 
 
 
@@ -1410,7 +1183,40 @@ The rest of the banquet
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Themes]
+.font4[Scales (location)]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 08&lt;br&gt;
+]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Scales (colour/fill)]
+]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 09&lt;br&gt;
 ]]
 
 
@@ -1427,17 +1233,20 @@ class: bg-main1 center middle hide-slide-number
 
 
 
+
 &lt;!-- *********** NEW SLIDE ************** --&gt;
 ---
 class: split-40 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-Some preprocessing...
+(Some preprocessing...)
 
 ```r
 rain &lt;- beaches %&gt;% 
-  group_by(month, year, season_name) %&gt;%
+  group_by(
+    month, year, season_name
+    ) %&gt;%
   summarise(
     rain = mean(rainfall)
   ) %&gt;%
@@ -1503,7 +1312,7 @@ geom_point(size = 5)
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1540,7 +1349,7 @@ geom_point(size = 5) +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1580,7 +1389,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1622,7 +1431,7 @@ coord_equal(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1663,7 +1472,7 @@ geom_abline(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1680,7 +1489,7 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-A simple scatterplot
+A simple bar plot
 
 ```r
 ggplot(
@@ -1701,7 +1510,7 @@ geom_col()
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 ]]
 ]]
 
@@ -1718,7 +1527,7 @@ class: split-40 bg-main1
 
 .column.bg-main1[.content.vtop.center[
 .pull.left[.pad1[.font2[
-A simple scatterplot
+A simple bar plot, ruined
 
 ```r
 ggplot(
@@ -1741,8 +1550,21 @@ geom_col() +
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
 ]]
+]]
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 10&lt;br&gt;
 ]]
 
 
@@ -1753,8 +1575,20 @@ geom_col() +
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Scales]
+.font4[Themes]
 ]]
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 11&lt;br&gt;
+]]
+
 
 
 
@@ -1764,59 +1598,10 @@ class: bg-main1 center middle hide-slide-number
 class: bg-main1 center middle hide-slide-number
 
 .reveal-text.bg-main2[.pad1[
-.font4[Animation]
+.font4[Extensions (in brief!)]
 ]]
 
 
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[Maps]
-]]
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-
-class: bg-main1 center middle hide-slide-number
-
-.reveal-text.bg-main2[.pad1[
-.font4[Extensions]
-]]
-
-
-
-
-
-&lt;!-- *********** NEW SLIDE ************** --&gt;
----
-class: split-50 bg-main1
-
-.column.bg-main1[.content.vtop.center[
-.pull.left[.pad1[.font2[
-
-&lt;br&gt;
-## [Writing ggplot2 extensions](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
-
-- Big ecosystem already
-- Don't reinvent the wheel
-- Learn some grid graphics
-- Be prepared for weirdness
-
-]]]
-]]
---
-.column.bg-main3[.content.vmiddle.center[
-
-&lt;img src="images/ggplot2_extension.jpg", width="70%"&gt;
-
-[Link to ggplot2 extension document](https://cran.r-project.org/web/packages/ggplot2/vignettes/extending-ggplot2.html)
-
-]]
 
 
 
@@ -1861,9 +1646,39 @@ geom_dothistogram &lt;- function(
 
 .column.bg-main3[.content.vtop.center[
 .pad1[.font2[
-![](slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 ]]
 ]]
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: white bg-black center middle hide-slide-number
+
+.pad1[
+.font4[
+Exercise 12&lt;br&gt;
+]]
+
+
+
+
+
+&lt;!-- *********** NEW SLIDE ************** --&gt;
+---
+
+class: bg-main1 center middle hide-slide-number
+
+.reveal-text.bg-main2[.pad1[
+.font4[Animation]
+]]
+
+
+
+
+
 
 
 
@@ -1885,7 +1700,7 @@ class: bg-main1 middle center
 
 class: bg-main1 middle center
 
-## thank u, next
+## thank u
     </textarea>
 <script src="libs/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
